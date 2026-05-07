@@ -1,1943 +1,3314 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>we talk · we fix · we stay</title>
-<meta name="description" content="a quiet place for us">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=DM+Sans:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
-<style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-:root {
-  --bg: #f1e6d2;
-  --bg-warm: #e9d9bf;
-  --paper: #faf3e4;
-  --paper-soft: #f5ecd9;
-  --ink: #2a1d12;
-  --ink-soft: #4d3a2a;
-  --ink-faded: #8c7660;
-  --rose: #b85c4e;
-  --rose-deep: #92402f;
-  --rose-soft: #e0a89e;
-  --sage: #7a8a6f;
-  --sage-deep: #586b4f;
-  --gold: #c19056;
-  --gold-soft: #e3c08c;
-  --shadow: rgba(58, 40, 28, 0.08);
-  --shadow-deep: rgba(58, 40, 28, 0.18);
-  --shadow-warm: rgba(184, 92, 78, 0.12);
-}
-html { scroll-behavior: smooth; }
-body {
-  font-family: 'DM Sans', sans-serif;
-  background: var(--bg);
-  color: var(--ink);
-  line-height: 1.6;
-  font-weight: 400;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-}
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 100;
-  opacity: 0.4;
-  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.16 0 0 0 0 0.11 0 0 0 0 0.07 0 0 0 0.07 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-  mix-blend-mode: multiply;
-}
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 99;
-  background: radial-gradient(ellipse at center, transparent 40%, rgba(120, 70, 40, 0.12) 100%);
-}
-nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 50;
-  padding: 22px 5vw;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: linear-gradient(to bottom, rgba(241, 230, 210, 0.95) 0%, rgba(241, 230, 210, 0.7) 80%, transparent 100%);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-}
-.nav-mark {
-  font-family: 'Fraunces', serif;
-  font-style: italic;
-  font-size: 14px;
-  letter-spacing: 0.08em;
-  color: var(--rose);
-  font-weight: 400;
-}
-.nav-links {
-  display: flex;
-  gap: 28px;
-  font-size: 12px;
-  letter-spacing: 0.18em;
-  text-transform: lowercase;
-}
-.nav-links a {
-  color: var(--ink-soft);
-  text-decoration: none;
-  position: relative;
-  padding: 4px 0;
-  transition: color 0.3s ease;
-}
-.nav-links a::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 0;
-  height: 1px;
-  background: var(--rose);
-  transition: width 0.3s ease;
-}
-.nav-links a:hover { color: var(--rose); }
-.nav-links a:hover::after { width: 100%; }
-@media (max-width: 720px) {
-  .nav-links { display: none; }
-  nav { padding: 16px 5vw; justify-content: center; }
-}
-.hero {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 120px 6vw 80px;
-  position: relative;
-}
-.hero-decoration {
-  position: absolute;
-  top: 18%;
-  right: 8%;
-  width: 200px;
-  height: 200px;
-  opacity: 0.5;
-  pointer-events: none;
-}
-.hero-decoration-2 {
-  position: absolute;
-  bottom: 12%;
-  left: 6%;
-  width: 140px;
-  opacity: 0.35;
-  pointer-events: none;
-}
-.hero-inner {
-  text-align: center;
-  max-width: 920px;
-  width: 100%;
-  position: relative;
-  z-index: 2;
-}
-.eyebrow {
-  font-family: 'Fraunces', serif;
-  font-style: italic;
-  font-size: 16px;
-  color: var(--rose);
-  letter-spacing: 0.04em;
-  margin-bottom: 18px;
-  opacity: 0;
-  animation: fadeUp 0.9s 0.2s ease-out forwards;
-}
-.eyebrow::before, .eyebrow::after {
-  content: '·';
-  margin: 0 14px;
-  color: var(--ink-faded);
-}
-.promise {
-  font-family: 'Fraunces', serif;
-  font-weight: 300;
-  color: var(--ink);
-  margin-bottom: 60px;
-  line-height: 0.95;
-}
-.promise span {
-  display: block;
-  font-size: clamp(48px, 11vw, 144px);
-  letter-spacing: -0.04em;
-  opacity: 0;
-  animation: fadeUp 1s ease-out forwards;
-}
-.promise span:nth-child(1) { animation-delay: 0.4s; }
-.promise span:nth-child(2) {
-  animation-delay: 0.8s;
-  font-style: italic;
-  color: var(--rose-deep);
-  font-weight: 400;
-}
-.promise span:nth-child(3) { animation-delay: 1.2s; }
-.clocks {
-  display: flex;
-  align-items: stretch;
-  justify-content: center;
-  gap: 28px;
-  margin: 40px auto;
-  max-width: 820px;
-  opacity: 0;
-  animation: fadeUp 1s 1.6s ease-out forwards;
-}
-.clock {
-  flex: 1;
-  background: var(--paper);
-  border: 1px solid rgba(140, 118, 96, 0.2);
-  border-radius: 6px;
-  padding: 24px 18px 22px;
-  position: relative;
-  text-align: center;
-  box-shadow: 0 4px 20px var(--shadow);
-}
-.clock-stamp {
-  position: absolute;
-  top: 12px;
-  right: 14px;
-  font-family: 'Fraunces', serif;
-  font-style: italic;
-  font-size: 11px;
-  color: var(--rose);
-  letter-spacing: 0.16em;
-  text-transform: lowercase;
-}
-.clock-city {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.28em;
-  color: var(--ink-faded);
-  margin-bottom: 4px;
-}
-.clock-name {
-  font-family: 'Fraunces', serif;
-  font-size: 19px;
-  font-weight: 400;
-  color: var(--ink);
-  margin-bottom: 18px;
-  font-style: italic;
-}
-.clock-analog {
-  width: 160px;
-  height: 160px;
-  display: block;
-  margin: 0 auto 18px;
-}
-.clock-face { fill: var(--paper-soft); stroke: var(--ink-soft); stroke-width: 0.8; }
-.clock-face-inner { fill: none; stroke: var(--ink-faded); stroke-width: 0.4; opacity: 0.5; }
-.tick { stroke: var(--ink-faded); stroke-width: 1; stroke-linecap: round; }
-.tick.major { stroke: var(--ink); stroke-width: 2.4; }
-.clock-numeral {
-  font-family: 'Fraunces', serif;
-  font-style: italic;
-  font-size: 11px;
-  fill: var(--ink-soft);
-  text-anchor: middle;
-  dominant-baseline: central;
-}
-.hour-hand, .minute-hand, .second-hand { stroke-linecap: round; }
-.hour-hand { stroke: var(--ink); stroke-width: 3.4; }
-.minute-hand { stroke: var(--ink); stroke-width: 2; }
-.second-hand { stroke: var(--rose); stroke-width: 1.1; }
-.clock-center { fill: var(--ink); }
-.clock-pin { fill: var(--rose); }
-.clock-meta {
-  font-family: 'Fraunces', serif;
-  font-style: italic;
-  font-size: clamp(15px, 1.6vw, 18px);
-  color: var(--ink-soft);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  min-height: 30px;
-  line-height: 1.35;
-  font-weight: 500;
-  flex-wrap: wrap;
-}
-.status-dot {
-  display: inline-block;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--sage);
-  box-shadow: 0 0 0 3px rgba(122, 138, 111, 0.2);
-  animation: pulse 2.4s ease-in-out infinite;
-  flex-shrink: 0;
-}
-.status-dot.asleep {
-  background: var(--ink-faded);
-  box-shadow: 0 0 0 3px rgba(140, 118, 96, 0.2);
-  animation: none;
-}
-.status-dot.together {
-  background: var(--rose);
-  box-shadow: 0 0 0 3px rgba(184, 92, 78, 0.25);
-}
-@keyframes pulse {
-  0%, 100% { box-shadow: 0 0 0 3px rgba(122, 138, 111, 0.2); }
-  50% { box-shadow: 0 0 0 6px rgba(122, 138, 111, 0.05); }
-}
-.between {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Fraunces', serif;
-  font-style: italic;
-  font-size: 13px;
-  color: var(--ink-faded);
-  padding: 0 4px;
-  min-width: 110px;
-}
-.between-line {
-  width: 70px;
-  height: 1px;
-  background: var(--ink-faded);
-  margin: 10px 0;
-  position: relative;
-}
-.between-line::before, .between-line::after {
-  content: '';
-  position: absolute;
-  top: -2px;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--rose);
-}
-.between-line::before { left: -2px; }
-.between-line::after { right: -2px; }
-.between-distance {
-  font-size: clamp(15px, 1.8vw, 22px);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  font-style: normal;
-  color: var(--rose-deep);
-  font-weight: 700;
-}
-.between-tz {
-  font-size: clamp(14px, 1.5vw, 18px);
-  font-style: italic;
-  color: var(--rose);
-  margin-top: 4px;
-  font-weight: 600;
-}
-@media (max-width: 720px) {
-  .clocks { flex-direction: column; gap: 18px; }
-  .between { padding: 8px 0; min-width: 0; flex-direction: row; gap: 14px; }
-  .between-line { width: 50px; margin: 0; }
-}
-.days-counter {
-  margin-top: 36px;
-  font-family: 'Fraunces', serif;
-  font-style: italic;
-  font-size: clamp(22px, 3vw, 34px);
-  color: var(--ink-soft);
-  opacity: 0;
-  animation: fadeUp 1s 2s ease-out forwards;
-  line-height: 1.5;
-}
-.days-counter strong {
-  color: var(--rose);
-  font-weight: 700;
-  font-style: normal;
-  font-size: 1.35em;
-}
-.days-counter-sub {
-  display: block;
-  margin-top: 6px;
-  font-size: clamp(15px, 1.6vw, 19px);
-  color: var(--ink-faded);
-  letter-spacing: 0.04em;
-}
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-section { padding: 100px 6vw; position: relative; }
-.section-header { max-width: 880px; margin: 0 auto 60px; text-align: center; }
-.section-number {
-  font-family: 'Fraunces', serif;
-  font-style: italic;
-  font-size: 13px;
-  color: var(--rose);
-  letter-spacing: 0.3em;
-  margin-bottom: 14px;
-}
-.section-title {
-  font-family: 'Fraunces', serif;
-  font-weight: 300;
-  font-size: clamp(36px, 6vw, 64px);
-  letter-spacing: -0.02em;
-  line-height: 1.05;
-  color: var(--ink);
-  margin-bottom: 14px;
-}
-.section-title em { font-style: italic; color: var(--rose-deep); font-weight: 400; }
-.section-tag {
-  font-family: 'Fraunces', serif;
-  font-style: italic;
-  font-size: 17px;
-  color: var(--ink-soft);
-  max-width: 600px;
-  margin: 0 auto;
-  line-height: 1.5;
-}
-.pause-section { background: linear-gradient(180deg, var(--bg) 0%, var(--paper-soft) 100%); }
-.pause-content { max-width: 540px; margin: 0 auto; text-align: center; }
-.breath-stage {
-  position: relative;
-  width: 280px;
-  height: 280px;
-  margin: 0 auto 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.breath-circle {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, var(--rose-soft), var(--rose) 70%);
-  box-shadow: 0 20px 60px var(--shadow-warm), inset 0 -10px 30px rgba(146, 64, 47, 0.3);
-  transform: scale(0.55);
-  transition: transform 4s cubic-bezier(0.4, 0, 0.6, 1);
-  position: relative;
-}
-.breath-circle::before {
-  content: '';
-  position: absolute;
-  inset: -20px;
-  border-radius: 50%;
-  border: 1px solid var(--rose-soft);
-  opacity: 0.4;
-}
-.breath-circle::after {
-  content: '';
-  position: absolute;
-  inset: -40px;
-  border-radius: 50%;
-  border: 1px solid var(--rose-soft);
-  opacity: 0.2;
-}
-.breath-circle.in { transform: scale(1); transition-duration: 4s; transition-timing-function: ease-in-out; }
-.breath-circle.hold { transform: scale(1); transition-duration: 0s; }
-.breath-circle.out { transform: scale(0.55); transition-duration: 6s; transition-timing-function: ease-in-out; }
-.breath-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-family: 'Fraunces', serif;
-  font-style: italic;
-  font-size: 22px;
-  color: var(--paper);
-  letter-spacing: 0.04em;
-  text-shadow: 0 1px 4px rgba(0,0,0,0.15);
-  pointer-events: none;
-  z-index: 2;
-  white-space: nowrap;
-}
-.pause-controls { display: flex; flex-direction: column; align-items: center; gap: 16px; }
-.pause-timer {
-  font-family: 'Fraunces', serif;
-  font-size: 32px;
-  font-weight: 300;
-  color: var(--ink);
-  letter-spacing: 0.02em;
-}
-.btn {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.24em;
-  padding: 14px 32px;
-  border: none;
-  background: var(--ink);
-  color: var(--paper);
-  border-radius: 100px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-weight: 500;
-}
-.btn:hover { background: var(--rose); transform: translateY(-1px); box-shadow: 0 8px 20px var(--shadow-warm); }
-.btn-soft {
-  background: transparent;
-  color: var(--ink);
-  border: 1px solid var(--ink-faded);
-}
-.btn-soft:hover { background: var(--rose); color: var(--paper); border-color: var(--rose); }
-.btn-small {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 11px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  padding: 9px 18px;
-  border: 1px solid var(--ink-faded);
-  background: transparent;
-  color: var(--ink-soft);
-  border-radius: 100px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-weight: 500;
-}
-.btn-small:hover { background: var(--rose); color: var(--paper); border-color: var(--rose); }
-.pause-prompt {
-  margin-top: 36px;
-  font-family: 'Fraunces', serif;
-  font-style: italic;
-  font-size: 18px;
-  color: var(--ink-soft);
-  line-height: 1.5;
-}
-.pause-prompt::before { content: '"'; color: var(--rose); margin-right: 4px; }
-.pause-prompt::after { content: '"'; color: var(--rose); margin-left: 4px; }
-.vow-section { background: var(--bg); position: relative; padding-bottom: 140px; }
-.vow-list {
-  max-width: 860px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0;
-}
-.vow-item {
-  width: 100%;
-  text-align: center;
-  padding: 60px 4vw;
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 1.4s ease-out, transform 1.4s ease-out;
-}
-.vow-item.visible { opacity: 1; transform: translateY(0); }
-.vow-text {
-  font-family: 'Fraunces', serif;
-  font-size: clamp(24px, 4vw, 40px);
-  font-weight: 300;
-  line-height: 1.32;
-  color: var(--ink);
-  letter-spacing: -0.012em;
-  max-width: 760px;
-  margin: 0 auto;
-}
-.vow-text em { font-style: italic; color: var(--rose-deep); font-weight: 400; }
-.vow-text strong { font-weight: 600; color: var(--ink); font-style: normal; }
-.vow-divider {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 8px 0;
-  opacity: 0;
-  transition: opacity 1s ease-out;
-}
-.vow-divider.visible { opacity: 1; }
-.vow-divider svg { width: 80px; height: 14px; display: block; }
-.vow-closing {
-  text-align: center;
-  margin: 80px auto 0;
-  padding: 60px 30px;
-  max-width: 760px;
-  border-top: 1px solid rgba(140, 118, 96, 0.25);
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 1.4s ease-out, transform 1.4s ease-out;
-}
-.vow-closing.visible { opacity: 1; transform: translateY(0); }
-.vow-closing-mark {
-  font-family: 'Fraunces', serif;
-  font-style: italic;
-  font-size: 13px;
-  color: var(--rose);
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
-  margin-bottom: 26px;
-}
-.vow-closing-text {
-  font-family: 'Fraunces', serif;
-  font-size: clamp(32px, 5.5vw, 56px);
-  font-weight: 300;
-  font-style: italic;
-  color: var(--rose-deep);
-  letter-spacing: -0.02em;
-  line-height: 1.15;
-}
-.calm-section { background: linear-gradient(180deg, var(--bg) 0%, var(--paper-soft) 50%, var(--bg) 100%); position: relative; }
-.calm-stack { max-width: 640px; margin: 0 auto; position: relative; min-height: 320px; }
-.reminder-card {
-  background: var(--paper);
-  border: 1px solid rgba(140, 118, 96, 0.2);
-  border-radius: 8px;
-  padding: 50px 44px;
-  box-shadow: 0 12px 40px var(--shadow);
-  text-align: center;
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  opacity: 0;
-  transform: translateY(20px) rotate(-1deg);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-.reminder-card.active { opacity: 1; transform: translateY(0) rotate(0); }
-.reminder-stamp {
-  font-family: 'Fraunces', serif;
-  font-style: italic;
-  font-size: 12px;
-  color: var(--rose);
-  letter-spacing: 0.18em;
-  margin-bottom: 22px;
-  text-transform: uppercase;
-}
-.reminder-text {
-  font-family: 'Fraunces', serif;
-  font-size: clamp(22px, 3.5vw, 30px);
-  font-weight: 300;
-  color: var(--ink);
-  line-height: 1.4;
-  letter-spacing: -0.01em;
-}
-.reminder-text em { font-style: italic; color: var(--rose-deep); font-weight: 400; }
-.calm-controls { display: flex; justify-content: center; gap: 14px; margin-top: 36px; }
-.calm-arrow {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: var(--paper);
-  border: 1px solid var(--ink-faded);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  color: var(--ink-soft);
-  transition: all 0.3s ease;
-  font-family: serif;
-}
-.calm-arrow:hover { background: var(--rose); color: var(--paper); border-color: var(--rose); }
-.calm-counter {
-  display: flex;
-  align-items: center;
-  font-family: 'Fraunces', serif;
-  font-style: italic;
-  font-size: 13px;
-  color: var(--ink-faded);
-  padding: 0 14px;
-}
-.memory-section { background: var(--bg-warm); padding-bottom: 140px; }
-.memory-wall {
-  max-width: 1100px;
-  margin: 0 auto;
-  position: relative;
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 24px;
-  align-items: start;
-  padding: 30px 0;
-}
-.polaroid {
-  background: var(--paper);
-  padding: 14px 14px 50px;
-  box-shadow: 0 12px 30px var(--shadow-deep), 0 1px 0 rgba(255,255,255,0.5) inset;
-  border-radius: 2px;
-  cursor: pointer;
-  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
-  position: relative;
-}
-.polaroid:hover { transform: rotate(0deg) scale(1.04) !important; box-shadow: 0 20px 50px var(--shadow-deep); z-index: 5; }
-.polaroid img { width: 100%; display: block; background: var(--ink-faded); aspect-ratio: 1 / 1; object-fit: cover; }
-.polaroid-caption {
-  position: absolute;
-  bottom: 14px;
-  left: 14px;
-  right: 14px;
-  font-family: 'Fraunces', serif;
-  font-style: italic;
-  font-size: 13px;
-  color: var(--ink-soft);
-  text-align: center;
-  letter-spacing: 0.02em;
-}
-.polaroid:nth-child(1) { grid-column: 1 / span 4; transform: rotate(-3deg); margin-top: 20px; }
-.polaroid:nth-child(2) { grid-column: 5 / span 4; transform: rotate(2deg); margin-top: 60px; }
-.polaroid:nth-child(3) { grid-column: 9 / span 4; transform: rotate(-2deg); }
-.polaroid:nth-child(4) { grid-column: 3 / span 4; transform: rotate(3deg); margin-top: 40px; }
-@media (max-width: 720px) {
-  .memory-wall { grid-template-columns: 1fr 1fr; gap: 16px; }
-  .polaroid { grid-column: span 1 !important; margin-top: 0 !important; }
-  .polaroid:nth-child(2n) { transform: rotate(2deg); }
-  .polaroid:nth-child(2n+1) { transform: rotate(-2deg); margin-top: 24px !important; }
-}
-.lightbox {
-  position: fixed;
-  inset: 0;
-  background: rgba(20, 12, 6, 0.92);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 200;
-  padding: 40px;
-  cursor: pointer;
-}
-.lightbox.open { display: flex; }
-.lightbox img { max-width: 95%; max-height: 90vh; border-radius: 4px; box-shadow: 0 30px 80px rgba(0,0,0,0.5); }
-.reset-section { background: linear-gradient(180deg, var(--bg-warm) 0%, var(--paper) 50%, var(--bg) 100%); }
-.reset-flow { max-width: 640px; margin: 0 auto; position: relative; }
-.reset-step {
-  background: var(--paper);
-  border: 1px solid rgba(140, 118, 96, 0.18);
-  border-radius: 8px;
-  padding: 50px 44px;
-  box-shadow: 0 8px 28px var(--shadow);
-  display: none;
-  text-align: center;
-}
-.reset-step.active { display: block; animation: fadeUp 0.6s ease-out; }
-.reset-step-number {
-  font-family: 'Fraunces', serif;
-  font-style: italic;
-  font-size: 13px;
-  color: var(--rose);
-  letter-spacing: 0.22em;
-  margin-bottom: 16px;
-  text-transform: uppercase;
-}
-.reset-step-prompt { font-family: 'Fraunces', serif; font-size: 26px; font-weight: 300; color: var(--ink); line-height: 1.4; margin-bottom: 30px; }
-.reset-step-prompt em { font-style: italic; color: var(--rose-deep); }
-.mini-breath-stage { width: 130px; height: 130px; margin: 24px auto 36px; display: flex; align-items: center; justify-content: center; }
-.mini-breath-circle {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, var(--rose-soft), var(--rose) 70%);
-  box-shadow: 0 8px 24px var(--shadow-warm);
-  animation: miniBreath 8s ease-in-out infinite;
-}
-@keyframes miniBreath {
-  0%, 100% { transform: scale(0.55); }
-  50% { transform: scale(1); }
-}
-.reset-promise-display {
-  font-family: 'Fraunces', serif;
-  text-align: center;
-  margin: 8px 0 36px;
-  padding: 38px 20px;
-  background: var(--paper-soft);
-  border-radius: 4px;
-  position: relative;
-}
-.reset-promise-display::before, .reset-promise-display::after {
-  content: '';
-  position: absolute;
-  width: 30px;
-  height: 1px;
-  background: var(--rose);
-  top: 50%;
-}
-.reset-promise-display::before { left: 30px; }
-.reset-promise-display::after { right: 30px; }
-.reset-promise-display p { font-size: 32px; font-weight: 300; color: var(--ink); line-height: 1.4; }
-.reset-promise-display p em { font-style: italic; color: var(--rose-deep); }
-.btn-choose {
-  font-family: 'Fraunces', serif;
-  font-style: italic;
-  font-size: 22px;
-  padding: 18px 42px;
-  background: var(--rose);
-  color: var(--paper);
-  border: none;
-  border-radius: 100px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 8px 24px var(--shadow-warm);
-  font-weight: 400;
-  display: inline-block;
-  margin: 16px auto 0;
-  letter-spacing: 0.01em;
-}
-.btn-choose:hover { transform: translateY(-2px) scale(1.03); background: var(--rose-deep); box-shadow: 0 12px 30px var(--shadow-warm); }
-.btn-choose:active { transform: scale(0.97); }
-.reset-step-actions { display: flex; gap: 10px; justify-content: space-between; align-items: center; margin-top: 14px; }
-.reset-progress { display: flex; gap: 8px; justify-content: center; margin-bottom: 30px; }
-.reset-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ink-faded); opacity: 0.4; transition: all 0.3s ease; }
-.reset-dot.active { background: var(--rose); opacity: 1; transform: scale(1.3); }
-.reset-complete {
-  text-align: center;
-  padding: 60px 30px;
-  background: var(--paper);
-  border-radius: 8px;
-  box-shadow: 0 8px 28px var(--shadow);
-  display: none;
-  border: 1px solid rgba(140, 118, 96, 0.18);
-}
-.reset-complete.visible { display: block; animation: fadeUp 0.8s ease-out; }
-.reset-complete-mark { font-family: 'Fraunces', serif; font-style: italic; font-size: 60px; color: var(--rose); margin-bottom: 16px; font-weight: 300; letter-spacing: 0.3em; }
-.reset-complete-text { font-family: 'Fraunces', serif; font-size: 28px; color: var(--ink); line-height: 1.4; margin-bottom: 18px; font-weight: 300; }
-.reset-complete-text em { font-style: italic; color: var(--rose-deep); }
-.reset-complete-sub { font-family: 'DM Sans', sans-serif; font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--ink-faded); margin-bottom: 32px; }
-.together-section { background: var(--bg); text-align: center; padding-bottom: 80px; }
-.heart-button {
-  width: 220px;
-  height: 220px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, var(--rose-soft), var(--rose) 60%, var(--rose-deep) 100%);
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 30px auto;
-  box-shadow: 0 20px 60px var(--shadow-warm);
-  position: relative;
-  transition: transform 0.3s ease;
-}
-.heart-button:hover { transform: scale(1.04); }
-.heart-button:active { transform: scale(0.96); }
-.heart-button::before {
-  content: '';
-  position: absolute;
-  inset: -6px;
-  border-radius: 50%;
-  border: 1px solid var(--rose-soft);
-  opacity: 0.6;
-  animation: heartPulseRing 3s ease-in-out infinite;
-}
-.heart-button::after {
-  content: '';
-  position: absolute;
-  inset: -16px;
-  border-radius: 50%;
-  border: 1px solid var(--rose-soft);
-  opacity: 0.3;
-  animation: heartPulseRing 3s 0.5s ease-in-out infinite;
-}
-@keyframes heartPulseRing {
-  0%, 100% { transform: scale(1); opacity: 0.6; }
-  50% { transform: scale(1.1); opacity: 0; }
-}
-.heart-icon { width: 90px; height: 90px; fill: var(--paper); filter: drop-shadow(0 2px 6px rgba(146, 64, 47, 0.4)); }
-.heart-button.pulsing { animation: heartBeat 0.8s ease; }
-@keyframes heartBeat {
-  0%, 100% { transform: scale(1); }
-  20% { transform: scale(1.15); }
-  40% { transform: scale(0.95); }
-  60% { transform: scale(1.1); }
-}
-.together-message { font-family: 'Fraunces', serif; font-style: italic; font-size: 22px; color: var(--ink); margin-top: 30px; min-height: 36px; transition: opacity 0.4s ease; padding: 0 20px; }
-.together-log {
-  max-width: 540px;
-  margin: 50px auto 0;
-  text-align: left;
-  background: var(--paper);
-  border: 1px solid rgba(140, 118, 96, 0.18);
-  border-radius: 6px;
-  padding: 28px 32px;
-  box-shadow: 0 4px 18px var(--shadow);
-}
-.together-log-title { font-family: 'DM Sans', sans-serif; font-size: 11px; text-transform: uppercase; letter-spacing: 0.24em; color: var(--ink-faded); margin-bottom: 18px; text-align: center; }
-.moment-list { list-style: none; max-height: 240px; overflow-y: auto; }
-.moment-list::-webkit-scrollbar { width: 4px; }
-.moment-list::-webkit-scrollbar-track { background: transparent; }
-.moment-list::-webkit-scrollbar-thumb { background: var(--rose-soft); border-radius: 4px; }
-.moment-item {
-  font-family: 'Fraunces', serif;
-  font-style: italic;
-  font-size: 15px;
-  color: var(--ink-soft);
-  padding: 10px 0;
-  border-bottom: 1px dashed rgba(140, 118, 96, 0.2);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 14px;
-}
-.moment-item:last-child { border-bottom: none; }
-.moment-item .when { font-size: 12px; letter-spacing: 0.06em; color: var(--ink-faded); font-style: normal; }
-.moment-item .heart-mini { color: var(--rose); font-size: 13px; flex-shrink: 0; }
-.moment-empty { font-family: 'Fraunces', serif; font-style: italic; color: var(--ink-faded); text-align: center; font-size: 15px; padding: 12px 0; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-/* ============ UPSET / MOOD METER ============ */
-.upset-section {
-  background: linear-gradient(180deg, var(--bg) 0%, var(--bg-warm) 100%);
-  padding-bottom: 100px;
-}
-.upset-sticker-wrap {
-  display: flex;
-  justify-content: center;
-  padding: 0 20px;
-}
-.upset-sticker {
-  position: relative;
-  background: var(--paper);
-  border: 1px solid rgba(140, 118, 96, 0.25);
-  border-radius: 3px;
-  padding: 60px 52px 50px;
-  max-width: 540px;
-  width: 100%;
-  text-align: center;
-  box-shadow:
-    0 20px 60px var(--shadow-deep),
-    4px 4px 0 rgba(193, 144, 86, 0.15),
-    -2px -2px 0 rgba(184, 92, 78, 0.08);
-  transition: background 0.6s ease;
-}
-/* tape strip at top */
-.upset-sticker::before {
-  content: '';
-  position: absolute;
-  top: -13px;
-  left: 50%;
-  transform: translateX(-50%) rotate(-1deg);
-  width: 88px;
-  height: 26px;
-  background: rgba(227, 192, 140, 0.55);
-  border-radius: 2px;
-  box-shadow: 0 1px 4px rgba(58,40,28,0.1);
-}
-.upset-emoji-ring {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  background: var(--paper-soft);
-  border: 2px solid rgba(184, 92, 78, 0.2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 24px;
-  transition: border-color 0.5s ease, background 0.5s ease;
-  box-shadow: 0 6px 20px var(--shadow);
-}
-.upset-emoji {
-  font-size: 58px;
-  line-height: 1;
-  display: block;
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  user-select: none;
-}
-.upset-percent-badge {
-  font-family: 'Fraunces', serif;
-  font-size: clamp(52px, 10vw, 80px);
-  font-weight: 700;
-  color: var(--rose);
-  line-height: 1;
-  letter-spacing: -0.04em;
-  margin-bottom: 12px;
-  transition: color 0.5s ease;
-}
-.upset-mood-label {
-  font-family: 'Fraunces', serif;
-  font-style: italic;
-  font-size: clamp(19px, 2.8vw, 26px);
-  font-weight: 400;
-  color: var(--ink);
-  margin-bottom: 10px;
-  letter-spacing: -0.01em;
-}
-.upset-mood-sub {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 14px;
-  color: var(--ink-faded);
-  letter-spacing: 0.04em;
-  margin-bottom: 40px;
-  line-height: 1.55;
-  min-height: 44px;
-  transition: opacity 0.25s ease;
-}
-.upset-slider-area { width: 100%; }
-.upset-scale-emojis {
-  display: flex;
-  justify-content: space-between;
-  font-size: 18px;
-  margin-bottom: 10px;
-  padding: 0 2px;
-  user-select: none;
-  line-height: 1;
-}
-.upset-slider {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 100%;
-  height: 7px;
-  border-radius: 100px;
-  background: linear-gradient(to right,
-    #7a8a6f 0%,
-    #c19056 30%,
-    #b85c4e 65%,
-    #92402f 100%);
-  cursor: pointer;
-  outline: none;
-  margin: 0 0 14px;
-  display: block;
-}
-.upset-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background: var(--paper);
-  border: 2.5px solid var(--rose);
-  cursor: grab;
-  box-shadow: 0 3px 10px var(--shadow-deep), 0 0 0 5px rgba(184, 92, 78, 0.1);
-  transition: transform 0.2s ease, border-color 0.4s ease;
-}
-.upset-slider::-webkit-slider-thumb:active {
-  cursor: grabbing;
-  transform: scale(1.18);
-  box-shadow: 0 5px 18px var(--shadow-deep), 0 0 0 8px rgba(184, 92, 78, 0.14);
-}
-.upset-slider::-moz-range-thumb {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background: var(--paper);
-  border: 2.5px solid var(--rose);
-  cursor: grab;
-  box-shadow: 0 3px 10px var(--shadow-deep);
-}
-.upset-scale-words {
-  display: flex;
-  justify-content: space-between;
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  color: var(--ink-faded);
-  padding: 0 2px;
-  font-family: 'DM Sans', sans-serif;
-}
-@media (max-width: 540px) {
-  .upset-sticker { padding: 52px 28px 40px; }
-  .upset-scale-words { font-size: 9px; letter-spacing: 0.12em; }
-}
+  <title>For Vaniza 💖</title>
 
-footer {
-  text-align: center;
-  padding: 50px 6vw 40px;
-  background: var(--ink);
-  color: var(--paper-soft);
-}
-footer .promise-mini { font-family: 'Fraunces', serif; font-style: italic; font-size: 22px; color: var(--rose-soft); margin-bottom: 14px; }
-footer .promise-mini em { color: var(--gold-soft); }
-footer p { font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(245, 236, 217, 0.5); }
-footer .signature { font-family: 'Fraunces', serif; font-style: italic; font-size: 14px; color: var(--rose-soft); margin-top: 18px; letter-spacing: 0.04em; text-transform: none; opacity: 0.85; }
-.fade-section { opacity: 0; transform: translateY(30px); transition: opacity 1s ease-out, transform 1s ease-out; }
-.fade-section.visible { opacity: 1; transform: translateY(0); }
-@media (max-width: 540px) {
-  section { padding: 70px 5vw; }
-  .reset-step { padding: 36px 26px; }
-  .reset-promise-display p { font-size: 26px; }
-}
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&family=Great+Vibes&family=Playfair+Display:wght@600;700;800&display=swap");
 
-/* ============ SHOOTING STAR / BROKEN HEART FLARE ============ */
-.star-overlay {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 9999;
-  overflow: hidden;
-}
-.star-flair {
-  position: absolute;
-  top: -90px;
-  right: -90px;
-  display: flex;
-  align-items: center;
-  animation: starFlight 1.9s cubic-bezier(0.28, 0.02, 0.72, 1) forwards;
-  will-change: transform, opacity;
-}
-@keyframes starFlight {
-  0%   { transform: translate(0, 0);                                    opacity: 0; }
-  5%   { opacity: 1; }
-  80%  { opacity: 1; }
-  100% { transform: translate(calc(-100vw - 180px), calc(100vh + 180px)); opacity: 0; }
-}
-/* wide soft glow behind the whole tail */
-.star-glow-halo {
-  position: absolute;
-  top: 50%;
-  right: -30px;
-  transform: translateY(-50%);
-  width: 380px;
-  height: 40px;
-  border-radius: 20px;
-  background: linear-gradient(90deg,
-    transparent 0%,
-    rgba(184, 92, 78, 0.08) 30%,
-    rgba(240, 150, 130, 0.22) 70%,
-    rgba(255, 200, 180, 0.35) 100%
-  );
-  filter: blur(8px);
-  pointer-events: none;
-}
-/* tight bright core tail */
-.star-tail {
-  width: 240px;
-  height: 5px;
-  border-radius: 3px;
-  background: linear-gradient(90deg,
-    transparent 0%,
-    rgba(184, 92, 78, 0.25) 25%,
-    rgba(210, 110, 90, 0.7) 60%,
-    rgba(255, 210, 190, 1) 100%
-  );
-  margin-right: -3px;
-  filter: blur(0.4px);
-  flex-shrink: 0;
-}
-/* thin bright highlight along the tail */
-.star-tail::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  right: 0;
-  transform: translateY(-50%);
-  width: 100px;
-  height: 1.5px;
-  border-radius: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 240, 230, 0.9));
-}
-/* the broken heart */
-.star-heart {
-  font-size: 50px;
-  line-height: 1;
-  position: relative;
-  z-index: 2;
-  flex-shrink: 0;
-  filter:
-    drop-shadow(0 0 6px rgba(184, 92, 78, 1))
-    drop-shadow(0 0 16px rgba(184, 92, 78, 0.85))
-    drop-shadow(0 0 40px rgba(220, 100, 80, 0.55))
-    drop-shadow(0 0 80px rgba(240, 120, 100, 0.3));
-  animation: heartFlicker 0.12s ease-in-out infinite alternate;
-}
-@keyframes heartFlicker {
-  from {
-    filter:
-      drop-shadow(0 0 6px rgba(184, 92, 78, 1))
-      drop-shadow(0 0 18px rgba(184, 92, 78, 0.8))
-      drop-shadow(0 0 42px rgba(220, 100, 80, 0.5));
-    transform: scale(1);
-  }
-  to {
-    filter:
-      drop-shadow(0 0 10px rgba(220, 60, 40, 1))
-      drop-shadow(0 0 28px rgba(220, 60, 40, 0.9))
-      drop-shadow(0 0 60px rgba(255, 90, 70, 0.55))
-      drop-shadow(0 0 100px rgba(255, 120, 90, 0.25));
-    transform: scale(1.1);
-  }
-}
-/* ember sparks — tiny dots that peel off */
-.star-ember {
-  position: absolute;
-  border-radius: 50%;
-  pointer-events: none;
-  animation: emberDrift var(--dur, 0.7s) ease-out forwards;
-}
-@keyframes emberDrift {
-  0%   { transform: translate(0, 0) scale(1); opacity: 0.9; }
-  100% { transform: translate(var(--dx, -20px), var(--dy, -30px)) scale(0); opacity: 0; }
-}
-</style>
+    :root {
+      --pink: #ff6fae;
+      --soft-pink: #ffd6e8;
+      --deep-pink: #d93d83;
+      --purple: #b77cff;
+      --lavender: #efe0ff;
+      --cream: #fff8f0;
+      --white: #ffffff;
+      --glass: rgba(255, 255, 255, 0.62);
+      --text: #4a2540;
+      --muted: #7b5a72;
+      --shadow: 0 28px 70px rgba(151, 76, 132, 0.22);
+      --radius: 30px;
+      --body-font: "Comfortaa", system-ui, sans-serif;
+      --title-font: "Playfair Display", Georgia, serif;
+      --script-font: "Great Vibes", cursive;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: var(--body-font);
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 10%, rgba(255, 255, 255, 0.9), transparent 28%),
+        radial-gradient(circle at 85% 18%, rgba(255, 182, 219, 0.75), transparent 32%),
+        radial-gradient(circle at 50% 90%, rgba(196, 161, 255, 0.65), transparent 35%),
+        linear-gradient(135deg, #fff1f8 0%, #f6eaff 48%, #fff7e7 100%);
+      overflow-x: hidden;
+    }
+
+    button {
+      font-family: inherit;
+    }
+
+    body.anniversary-mode {
+      animation: anniversaryGlow 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes anniversaryGlow {
+      from { filter: saturate(1); }
+      to { filter: saturate(1.18) brightness(1.04); }
+    }
+
+    .page-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: -3;
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(4px);
+      opacity: 0.55;
+      animation: floatOrb 18s ease-in-out infinite alternate;
+    }
+
+    .orb.one {
+      width: 220px;
+      height: 220px;
+      background: rgba(255, 111, 174, 0.22);
+      top: 8%;
+      left: 5%;
+    }
+
+    .orb.two {
+      width: 260px;
+      height: 260px;
+      background: rgba(183, 124, 255, 0.2);
+      bottom: 8%;
+      right: 4%;
+      animation-delay: -5s;
+    }
+
+    .orb.three {
+      width: 160px;
+      height: 160px;
+      background: rgba(255, 232, 161, 0.35);
+      top: 38%;
+      right: 16%;
+      animation-delay: -10s;
+    }
+
+    @keyframes floatOrb {
+      from { transform: translate3d(0, 0, 0) scale(1); }
+      to { transform: translate3d(28px, -34px, 0) scale(1.08); }
+    }
+
+    .sparkle-layer,
+    .heart-layer,
+    .confetti-layer {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 2;
+    }
+
+    .heart-layer {
+      pointer-events: auto;
+      z-index: 5;
+    }
+
+    .sparkle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 0 16px rgba(255, 255, 255, 0.9);
+      animation: sparkleDrift linear forwards;
+    }
+
+    @keyframes sparkleDrift {
+      from { opacity: 0; transform: translateY(12px) scale(0.6); }
+      25% { opacity: 1; }
+      to { opacity: 0; transform: translateY(-110vh) scale(1.2); }
+    }
+
+    .floating-heart {
+      position: absolute;
+      border: 0;
+      background: transparent;
+      color: rgba(255, 80, 150, 0.75);
+      cursor: pointer;
+      pointer-events: auto;
+      animation: heartFloat linear forwards;
+      text-shadow: 0 8px 24px rgba(217, 61, 131, 0.25);
+    }
+
+    @keyframes heartFloat {
+      from { opacity: 0; transform: translateY(20px) scale(0.8) rotate(0deg); }
+      12% { opacity: 1; }
+      to { opacity: 0; transform: translateY(-115vh) scale(1.4) rotate(28deg); }
+    }
+
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 16px;
+      border-radius: 4px;
+      background: var(--pink);
+      animation: confettiFall 2.8s ease-out forwards;
+    }
+
+    @keyframes confettiFall {
+      to { transform: translateY(105vh) rotate(720deg); opacity: 0; }
+    }
+
+    .shell {
+      width: min(1180px, calc(100% - 34px));
+      margin: 0 auto;
+    }
+
+    .hero {
+      min-height: 100vh;
+      padding: 24px 0 70px;
+      display: grid;
+      align-items: center;
+    }
+
+    .top-pill {
+      width: fit-content;
+      margin: 0 auto 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 18px;
+      border-radius: 999px;
+      background: var(--glass);
+      border: 1px solid rgba(255, 255, 255, 0.65);
+      box-shadow: 0 14px 36px rgba(151, 76, 132, 0.14);
+      backdrop-filter: blur(16px);
+      animation: fadeDown 0.9s ease both;
+    }
+
+    .flag {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid rgba(255, 255, 255, 0.85);
+      box-shadow: 0 8px 20px rgba(96, 54, 91, 0.18);
+    }
+
+    .top-pill span {
+      font-weight: 900;
+      color: var(--deep-pink);
+      letter-spacing: 0.2px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.02fr 0.98fr;
+      gap: 38px;
+      align-items: center;
+    }
+
+    .hero-copy,
+    .card {
+      border-radius: var(--radius);
+      background: linear-gradient(145deg, rgba(255,255,255,0.72), rgba(255,255,255,0.42));
+      border: 1px solid rgba(255,255,255,0.75);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+    }
+
+    .hero-copy {
+      padding: 26px;
+      animation: fadeUp 0.9s ease both;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 13px;
+      border-radius: 999px;
+      background: rgba(255, 111, 174, 0.12);
+      color: var(--deep-pink);
+      font-weight: 900;
+      font-size: 0.9rem;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-family: var(--title-font);
+      font-size: clamp(2.55rem, 8vw, 6.5rem);
+      line-height: 0.92;
+      letter-spacing: -3px;
+      color: #3d1734;
+      margin-bottom: 18px;
+    }
+
+    .script-word {
+      font-family: var(--script-font);
+      font-weight: 400;
+      color: var(--deep-pink);
+      text-shadow: 0 14px 34px rgba(217, 61, 131, 0.18);
+    }
+
+    .typing-line {
+      min-height: 66px;
+      font-size: clamp(1.05rem, 2.7vw, 1.45rem);
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 22px;
+      font-weight: 700;
+    }
+
+    .typing-cursor {
+      display: inline-block;
+      width: 3px;
+      height: 1.1em;
+      background: var(--deep-pink);
+      margin-left: 5px;
+      transform: translateY(4px);
+      animation: blink 0.8s infinite;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    .timer-card {
+      display: grid;
+      gap: 10px;
+      padding: 18px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.55);
+      border: 1px solid rgba(255,255,255,0.75);
+      box-shadow: 0 12px 34px rgba(151, 76, 132, 0.13);
+    }
+
+    .timer-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--deep-pink);
+      font-weight: 900;
+    }
+
+    .timer-text {
+      font-size: clamp(0.96rem, 2.4vw, 1.16rem);
+      line-height: 1.65;
+      font-weight: 750;
+    }
+
+    .promise-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .promise-grid div {
+      text-align: center;
+      padding: 13px 10px;
+      border-radius: 18px;
+      background: rgba(255, 111, 174, 0.11);
+      color: var(--deep-pink);
+      font-weight: 900;
+    }
+
+    .calendar-zone {
+      position: relative;
+      display: grid;
+      justify-items: center;
+      animation: fadeUp 1.1s ease 0.16s both;
+    }
+
+    .calendar-glow {
+      position: absolute;
+      width: min(430px, 90vw);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 111, 174, 0.2), transparent 62%);
+      filter: blur(12px);
+      z-index: -1;
+    }
+
+    .paper-stack {
+      position: relative;
+      width: min(390px, 88vw);
+      height: min(500px, 115vw);
+      perspective: 1300px;
+      margin: 12px auto 18px;
+    }
+
+    .memory-page {
+      position: absolute;
+      inset: 0;
+      border-radius: 32px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,248,252,0.92));
+      box-shadow: 0 26px 65px rgba(126, 59, 113, 0.24), 0 1px 0 rgba(255,255,255,0.9) inset;
+      padding: 16px 16px 22px;
+      transform-origin: 12% 5%;
+      border: 1px solid rgba(255, 255, 255, 0.85);
+      overflow: hidden;
+      backface-visibility: hidden;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+
+    .memory-page::before {
+      content: "";
+      position: absolute;
+      top: 13px;
+      left: 26px;
+      right: 26px;
+      height: 14px;
+      border-radius: 999px;
+      background: repeating-linear-gradient(90deg, rgba(217, 61, 131, 0.25) 0 9px, transparent 9px 18px);
+      opacity: 0.6;
+    }
+
+    .page-photo-wrap {
+      position: relative;
+      margin-top: 28px;
+      width: 100%;
+      height: calc(100% - 95px);
+      border-radius: 25px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #ffe9f3, #f1e6ff);
+      border: 1px solid rgba(255,255,255,0.75);
+    }
+
+    .page-photo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transform: scale(1.01);
+      transition: opacity 0.35s ease, transform 0.45s ease, filter 0.45s ease;
+    }
+
+    .memory-page.shuffle-pop .page-photo-wrap img {
+      transform: scale(1.08) rotate(1deg);
+      filter: saturate(1.14) brightness(1.05);
+    }
+
+    .tap-hint {
+      position: absolute;
+      left: 50%;
+      top: 54px;
+      transform: translateX(-50%);
+      z-index: 3;
+      width: max-content;
+      max-width: calc(100% - 28px);
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.75);
+      color: var(--deep-pink);
+      font-size: 0.74rem;
+      font-weight: 900;
+      box-shadow: 0 10px 25px rgba(151, 76, 132, 0.12);
+      backdrop-filter: blur(12px);
+    }
+
+    .fallback-photo {
+      height: 100%;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 22px;
+      color: var(--deep-pink);
+      font-weight: 850;
+      line-height: 1.55;
+      background:
+        radial-gradient(circle at top, rgba(255,255,255,0.82), transparent 45%),
+        linear-gradient(135deg, #ffe1ef, #efe0ff);
+    }
+
+    .page-caption {
+      position: absolute;
+      left: 16px;
+      right: 16px;
+      bottom: 16px;
+      padding: 12px 14px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.74);
+      color: #5b2c4f;
+      font-size: 0.9rem;
+      font-weight: 800;
+      text-align: center;
+      backdrop-filter: blur(10px);
+      line-height: 1.45;
+    }
+
+    .page-tag {
+      position: absolute;
+      top: 17px;
+      right: 18px;
+      background: rgba(255, 111, 174, 0.13);
+      color: var(--deep-pink);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-weight: 900;
+      font-size: 0.78rem;
+    }
+
+    .memory-page.torn {
+      pointer-events: none;
+      animation: tearAway 0.95s cubic-bezier(.5,.05,.2,1) forwards;
+    }
+
+    @keyframes tearAway {
+      0% { opacity: 1; transform: rotate(0deg) translate3d(0, 0, 0) scale(1); filter: blur(0); }
+      40% { opacity: 0.96; transform: rotate(-10deg) translate3d(-18px, -32px, 120px) scale(1.01); }
+      100% { opacity: 0; transform: rotate(-32deg) translate3d(-110vw, -46vh, 220px) scale(0.82); filter: blur(3px); }
+    }
+
+    .animation-status {
+      min-height: 28px;
+      text-align: center;
+      color: var(--deep-pink);
+      font-weight: 900;
+      line-height: 1.5;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .btn {
+      border: 0;
+      cursor: pointer;
+      border-radius: 999px;
+      padding: 13px 18px;
+      font-weight: 900;
+      color: white;
+      background: linear-gradient(135deg, var(--pink), var(--purple));
+      box-shadow: 0 14px 28px rgba(217, 61, 131, 0.22);
+      transition: transform 0.22s ease, box-shadow 0.22s ease, opacity 0.22s ease;
+      touch-action: manipulation;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 38px rgba(217, 61, 131, 0.28);
+    }
+
+    .btn:active {
+      transform: translateY(0) scale(0.98);
+    }
+
+    .btn.secondary {
+      color: var(--deep-pink);
+      background: rgba(255,255,255,0.7);
+      border: 1px solid rgba(255,255,255,0.88);
+    }
+
+    .btn.hidden {
+      display: none;
+    }
+
+    .section {
+      padding: 48px 0;
+    }
+
+    .card {
+      position: relative;
+      padding: clamp(22px, 4vw, 34px);
+      overflow: hidden;
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      width: 160px;
+      height: 160px;
+      right: -60px;
+      top: -70px;
+      background: radial-gradient(circle, rgba(255, 111, 174, 0.18), transparent 65%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .section-title {
+      font-family: var(--title-font);
+      font-size: clamp(1.7rem, 5vw, 3.1rem);
+      letter-spacing: -1.4px;
+      margin-bottom: 10px;
+      color: #45173a;
+    }
+
+    .section-subtitle {
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 1rem;
+      max-width: 760px;
+      margin-bottom: 24px;
+      font-weight: 700;
+    }
+
+    .quote-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .quote-card {
+      padding: 20px;
+      min-height: 190px;
+      display: grid;
+      align-content: center;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.5);
+      border: 1px solid rgba(255,255,255,0.75);
+      box-shadow: 0 16px 38px rgba(151, 76, 132, 0.11);
+      line-height: 1.8;
+      color: #583050;
+      font-weight: 750;
+      text-align: center;
+    }
+
+    .soft-heart-game {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .soft-heart-visual {
+      min-height: 260px;
+      border-radius: 28px;
+      background:
+        radial-gradient(circle at 50% 40%, rgba(255, 111, 174, 0.22), transparent 44%),
+        rgba(255,255,255,0.52);
+      border: 1px solid rgba(255,255,255,0.78);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 20px;
+      overflow: hidden;
+    }
+
+    .soft-heart-big {
+      font-size: clamp(5rem, 16vw, 9rem);
+      filter: drop-shadow(0 18px 30px rgba(217, 61, 131, 0.25));
+      animation: softHeartBeat 1.5s ease-in-out infinite;
+    }
+
+    @keyframes softHeartBeat {
+      0%, 100% { transform: scale(1); }
+      35% { transform: scale(1.08); }
+      55% { transform: scale(0.98); }
+    }
+
+    .soft-heart-options {
+      display: grid;
+      gap: 14px;
+    }
+
+    .choice-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .choice-btn {
+      min-height: 110px;
+      border: 0;
+      border-radius: 25px;
+      padding: 18px;
+      cursor: pointer;
+      color: #5b2c4f;
+      background: rgba(255,255,255,0.62);
+      border: 1px solid rgba(255,255,255,0.82);
+      box-shadow: 0 16px 38px rgba(151, 76, 132, 0.11);
+      font-weight: 900;
+      font-size: 1.08rem;
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+      touch-action: manipulation;
+    }
+
+    .choice-btn span {
+      display: block;
+      font-size: 2.2rem;
+      margin-bottom: 8px;
+    }
+
+    .choice-btn:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 22px 48px rgba(151, 76, 132, 0.17);
+    }
+
+    .soft-result,
+    .compliment-result,
+    .capsule-lock {
+      padding: 18px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.58);
+      border: 1px solid rgba(255,255,255,0.78);
+      color: var(--muted);
+      line-height: 1.75;
+      font-weight: 800;
+    }
+
+    .score-line {
+      display: grid;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .score-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      color: var(--deep-pink);
+      font-weight: 900;
+      font-size: 0.9rem;
+    }
+
+    .score-track {
+      height: 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.58);
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.75);
+    }
+
+    .score-fill {
+      width: 0%;
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--pink), var(--purple));
+      transition: width 0.55s ease;
+    }
+
+    .timeline {
+      position: relative;
+      display: grid;
+      gap: 18px;
+      margin-top: 16px;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 18px;
+      top: 8px;
+      bottom: 8px;
+      width: 3px;
+      border-radius: 999px;
+      background: linear-gradient(var(--pink), var(--purple));
+      opacity: 0.45;
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-left: 54px;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: 4px;
+      top: 4px;
+      width: 31px;
+      height: 31px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--pink), var(--purple));
+      box-shadow: 0 0 0 8px rgba(255, 111, 174, 0.12);
+      display: grid;
+      place-items: center;
+      color: white;
+      font-size: 0.88rem;
+    }
+
+    .timeline-box {
+      padding: 17px 18px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.56);
+      border: 1px solid rgba(255,255,255,0.75);
+    }
+
+    .timeline-box h3,
+    .letter-card h3,
+    .badge h3,
+    .city-card h3 {
+      color: var(--deep-pink);
+      margin-bottom: 5px;
+      font-family: var(--title-font);
+      font-size: 1.35rem;
+    }
+
+    .timeline-box p,
+    .letter-card p,
+    .badge p {
+      color: var(--muted);
+      line-height: 1.7;
+      font-weight: 700;
+    }
+
+    .distance-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr 1fr;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .city-card {
+      min-height: 160px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.58);
+      border: 1px solid rgba(255,255,255,0.8);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 18px;
+      box-shadow: 0 18px 38px rgba(151, 76, 132, 0.11);
+    }
+
+    .city-card img {
+      width: 66px;
+      height: 66px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid white;
+      box-shadow: 0 10px 24px rgba(96, 54, 91, 0.14);
+      margin-bottom: 12px;
+    }
+
+    .city-card p {
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .love-map {
+      min-height: 210px;
+      border-radius: 28px;
+      background:
+        radial-gradient(circle at 20% 45%, rgba(255,111,174,0.16), transparent 18%),
+        radial-gradient(circle at 80% 45%, rgba(183,124,255,0.16), transparent 18%),
+        rgba(255,255,255,0.48);
+      border: 1px solid rgba(255,255,255,0.75);
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+
+    .love-map svg {
+      width: 100%;
+      height: 210px;
+    }
+
+    .map-line {
+      stroke-dasharray: 8 10;
+      animation: dashLove 2.8s linear infinite;
+      filter: drop-shadow(0 0 7px rgba(217, 61, 131, 0.55));
+    }
+
+    @keyframes dashLove {
+      to { stroke-dashoffset: -120; }
+    }
+
+    .map-heart {
+      animation: mapPulse 1.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes mapPulse {
+      from { transform: scale(1); opacity: 0.75; }
+      to { transform: scale(1.12); opacity: 1; }
+    }
+
+    .compliment-box {
+      display: grid;
+      gap: 15px;
+      justify-items: start;
+    }
+
+    .letters-grid,
+    .badges-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .letter-card,
+    .badge {
+      border: 0;
+      text-align: left;
+      padding: 20px;
+      min-height: 150px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.58);
+      border: 1px solid rgba(255,255,255,0.78);
+      box-shadow: 0 18px 38px rgba(151, 76, 132, 0.11);
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+      cursor: pointer;
+      color: var(--text);
+    }
+
+    .letter-card:hover,
+    .badge:hover {
+      transform: translateY(-5px) rotate(-0.4deg);
+      box-shadow: 0 24px 48px rgba(151, 76, 132, 0.16);
+    }
+
+    .letter-icon,
+    .badge-icon {
+      font-size: 2rem;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .capsule-only {
+      display: grid;
+      gap: 16px;
+    }
+
+    .big-number {
+      font-size: clamp(2.1rem, 6vw, 4rem);
+      line-height: 1;
+      color: var(--deep-pink);
+      font-weight: 950;
+      margin-bottom: 10px;
+      font-family: var(--title-font);
+    }
+
+    .garden {
+      min-height: 300px;
+      display: flex;
+      flex-wrap: wrap;
+      align-content: flex-end;
+      align-items: flex-end;
+      gap: 12px;
+      padding: 24px;
+      border-radius: 26px;
+      background:
+        radial-gradient(circle at 20% 15%, rgba(255,255,255,0.75), transparent 28%),
+        linear-gradient(180deg, rgba(255,255,255,0.5), rgba(255,255,255,0.25)),
+        linear-gradient(0deg, rgba(155, 215, 154, 0.24), transparent 42%);
+      border: 1px solid rgba(255,255,255,0.72);
+      overflow: hidden;
+    }
+
+    .flower {
+      position: relative;
+      width: 42px;
+      height: 72px;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+      touch-action: manipulation;
+      animation: growFlower 0.9s ease both;
+      transform-origin: bottom;
+      flex: 0 0 auto;
+    }
+
+    .flower .stem {
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      width: 4px;
+      height: 38px;
+      border-radius: 999px;
+      background: #66b879;
+      transform: translateX(-50%);
+    }
+
+    .flower .leaf {
+      position: absolute;
+      bottom: 18px;
+      width: 18px;
+      height: 10px;
+      border-radius: 100% 0 100% 0;
+      background: #80c88b;
+      opacity: 0.9;
+    }
+
+    .flower .leaf.left {
+      left: 8px;
+      transform: rotate(-25deg);
+    }
+
+    .flower .leaf.right {
+      right: 8px;
+      transform: scaleX(-1) rotate(-25deg);
+    }
+
+    .flower .bloom {
+      position: absolute;
+      left: 50%;
+      top: 8px;
+      width: 34px;
+      height: 34px;
+      transform: translateX(-50%) scale(0.65);
+      transition: transform 0.34s cubic-bezier(.17,.84,.44,1);
+    }
+
+    .flower .petal {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 17px;
+      height: 22px;
+      border-radius: 999px 999px 12px 12px;
+      background: linear-gradient(180deg, #ff9bc7, #ff6fae);
+      transform-origin: center bottom;
+      opacity: 0.88;
+      transition: transform 0.34s cubic-bezier(.17,.84,.44,1), opacity 0.34s ease;
+    }
+
+    .flower .petal:nth-child(1) { transform: translate(-50%, -65%) rotate(0deg) scale(0.45); }
+    .flower .petal:nth-child(2) { transform: translate(-50%, -65%) rotate(60deg) scale(0.45); }
+    .flower .petal:nth-child(3) { transform: translate(-50%, -65%) rotate(120deg) scale(0.45); }
+    .flower .petal:nth-child(4) { transform: translate(-50%, -65%) rotate(180deg) scale(0.45); }
+    .flower .petal:nth-child(5) { transform: translate(-50%, -65%) rotate(240deg) scale(0.45); }
+    .flower .petal:nth-child(6) { transform: translate(-50%, -65%) rotate(300deg) scale(0.45); }
+
+    .flower .center {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: #ffd166;
+      transform: translate(-50%, -50%) scale(0.8);
+      box-shadow: 0 0 12px rgba(255, 209, 102, 0.7);
+      transition: transform 0.34s ease;
+    }
+
+    .flower.bloomed .bloom {
+      transform: translateX(-50%) scale(1);
+    }
+
+    .flower.bloomed .petal:nth-child(1) { transform: translate(-50%, -83%) rotate(0deg) scale(1); }
+    .flower.bloomed .petal:nth-child(2) { transform: translate(-50%, -83%) rotate(60deg) scale(1); }
+    .flower.bloomed .petal:nth-child(3) { transform: translate(-50%, -83%) rotate(120deg) scale(1); }
+    .flower.bloomed .petal:nth-child(4) { transform: translate(-50%, -83%) rotate(180deg) scale(1); }
+    .flower.bloomed .petal:nth-child(5) { transform: translate(-50%, -83%) rotate(240deg) scale(1); }
+    .flower.bloomed .petal:nth-child(6) { transform: translate(-50%, -83%) rotate(300deg) scale(1); }
+    .flower.bloomed .center { transform: translate(-50%, -50%) scale(1.15); }
+
+    .flower.special .petal {
+      background: linear-gradient(180deg, #c9a7ff, #b77cff);
+    }
+
+    .flower.super .petal {
+      background: linear-gradient(180deg, #ffd6e8, #ff4f9d);
+    }
+
+    @keyframes growFlower {
+      from { opacity: 0; transform: scaleY(0.05) translateY(22px); }
+      to { opacity: 1; transform: scaleY(1) translateY(0); }
+    }
+
+    .flower-burst {
+      position: fixed;
+      pointer-events: none;
+      z-index: 90;
+      font-size: 18px;
+      animation: flowerBurst 0.9s ease-out forwards;
+    }
+
+    @keyframes flowerBurst {
+      to {
+        transform: translate(var(--x), var(--y)) scale(0.4) rotate(80deg);
+        opacity: 0;
+      }
+    }
+
+    .garden-note {
+      margin-top: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+      font-weight: 800;
+    }
+
+    .badge {
+      cursor: default;
+      opacity: 0.52;
+      filter: grayscale(0.5);
+    }
+
+    .badge.unlocked {
+      opacity: 1;
+      filter: none;
+      animation: badgePop 0.7s ease both;
+    }
+
+    @keyframes badgePop {
+      from { transform: scale(0.85); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .final-message {
+      text-align: center;
+      padding: clamp(34px, 7vw, 70px);
+      border-radius: 38px;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(255,255,255,0.85), transparent 42%),
+        linear-gradient(135deg, rgba(255,111,174,0.22), rgba(183,124,255,0.18));
+      border: 1px solid rgba(255,255,255,0.78);
+      box-shadow: var(--shadow);
+    }
+
+    .final-message h2 {
+      font-family: var(--title-font);
+      font-size: clamp(2rem, 6vw, 4.2rem);
+      line-height: 1.12;
+      letter-spacing: -2px;
+      color: #45173a;
+      margin-bottom: 16px;
+    }
+
+    .final-message p {
+      font-size: clamp(1.05rem, 2.6vw, 1.3rem);
+      color: var(--muted);
+      line-height: 1.8;
+      font-weight: 750;
+    }
+
+    .footer {
+      text-align: center;
+      color: var(--muted);
+      padding: 34px 0 50px;
+      font-weight: 750;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      display: none;
+      place-items: center;
+      padding: 18px;
+      background: rgba(57, 24, 49, 0.34);
+      backdrop-filter: blur(12px);
+    }
+
+    .modal.show {
+      display: grid;
+      animation: fadeIn 0.25s ease both;
+    }
+
+    .modal-box {
+      width: min(650px, 100%);
+      max-height: min(82vh, 760px);
+      overflow: auto;
+      border-radius: 32px;
+      background:
+        radial-gradient(circle at top, rgba(255,255,255,0.94), rgba(255,248,252,0.9)),
+        linear-gradient(135deg, #fff8fb, #f4eaff);
+      border: 1px solid rgba(255,255,255,0.85);
+      box-shadow: 0 34px 90px rgba(53, 24, 47, 0.28);
+      padding: clamp(24px, 5vw, 38px);
+      animation: letterOpen 0.45s cubic-bezier(.17,.84,.44,1) both;
+      position: relative;
+    }
+
+    @keyframes letterOpen {
+      from { opacity: 0; transform: translateY(20px) scale(0.94) rotateX(10deg); }
+      to { opacity: 1; transform: translateY(0) scale(1) rotateX(0); }
+    }
+
+    .modal-title {
+      font-family: var(--title-font);
+      font-size: clamp(1.6rem, 5vw, 2.7rem);
+      color: var(--deep-pink);
+      margin-bottom: 12px;
+      letter-spacing: -1px;
+    }
+
+    .modal-body {
+      color: #583050;
+      line-height: 1.9;
+      font-size: 1rem;
+      font-weight: 700;
+      white-space: pre-line;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 0;
+      cursor: pointer;
+      color: var(--deep-pink);
+      background: rgba(255,255,255,0.7);
+      font-size: 1.35rem;
+      font-weight: 900;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      transform: translateX(-50%) translateY(24px);
+      z-index: 200;
+      width: min(480px, calc(100% - 34px));
+      padding: 16px 18px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.88);
+      border: 1px solid rgba(255,255,255,0.9);
+      box-shadow: 0 22px 60px rgba(53, 24, 47, 0.2);
+      color: var(--deep-pink);
+      font-weight: 900;
+      text-align: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: 0.35s ease;
+      backdrop-filter: blur(16px);
+      line-height: 1.5;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* FOOD GAME */
+    .food-game-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 120;
+      display: none;
+      place-items: center;
+      padding: 18px;
+      background:
+        radial-gradient(circle at 20% 10%, rgba(255, 214, 224, 0.8), transparent 28%),
+        radial-gradient(circle at 85% 80%, rgba(183, 124, 255, 0.38), transparent 30%),
+        rgba(71, 29, 60, 0.42);
+      backdrop-filter: blur(16px);
+    }
+
+    .food-game-overlay.show {
+      display: grid;
+      animation: fadeIn 0.25s ease both;
+    }
+
+    .food-game-panel {
+      position: relative;
+      width: min(460px, 100%);
+      max-height: min(92vh, 820px);
+      overflow: auto;
+      border-radius: 34px;
+      padding: 28px 18px 30px;
+      background:
+        radial-gradient(circle at top, rgba(255,255,255,0.96), rgba(255,248,248,0.92)),
+        linear-gradient(145deg, #fff8f8, #ffe0ec);
+      border: 1px solid rgba(255,255,255,0.9);
+      box-shadow: 0 34px 90px rgba(53, 24, 47, 0.32);
+    }
+
+    .food-game-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      z-index: 5;
+      width: 42px;
+      height: 42px;
+      border: 0;
+      border-radius: 50%;
+      cursor: pointer;
+      background: rgba(255,255,255,0.78);
+      color: var(--deep-pink);
+      font-size: 1.4rem;
+      font-weight: 900;
+    }
+
+    .food-game-hearts {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      border-radius: 34px;
+    }
+
+    .food-floating-heart {
+      position: absolute;
+      bottom: -50px;
+      font-size: 1.25rem;
+      opacity: 0;
+      animation: foodHeartFloat linear forwards;
+    }
+
+    @keyframes foodHeartFloat {
+      0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+      12% { opacity: 0.62; }
+      90% { opacity: 0.42; }
+      100% { transform: translateY(-760px) rotate(32deg); opacity: 0; }
+    }
+
+    .food-game-header {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .food-game-eyebrow {
+      font-size: 0.76rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--deep-pink);
+      margin-bottom: 8px;
+      font-weight: 900;
+    }
+
+    .food-game-header h2 {
+      font-family: var(--title-font);
+      font-size: clamp(1.7rem, 7vw, 2.45rem);
+      font-style: italic;
+      color: var(--deep-pink);
+      line-height: 1.15;
+      margin-bottom: 8px;
+    }
+
+    .food-game-header p {
+      color: var(--muted);
+      font-style: italic;
+      font-weight: 700;
+      line-height: 1.6;
+    }
+
+    .food-game-progress {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      margin-bottom: 24px;
+    }
+
+    #foodGameProgressLabel {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 7px;
+      text-align: center;
+      letter-spacing: 0.06em;
+      font-weight: 800;
+    }
+
+    .food-game-progress-bar {
+      width: 100%;
+      height: 8px;
+      background: #ffe0ec;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .food-game-progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--pink), #e8a87c);
+      border-radius: 999px;
+      transition: width 0.5s cubic-bezier(.4,0,.2,1);
+    }
+
+    .food-game-arena {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 0;
+    }
+
+    .food-card-btn {
+      width: 100%;
+      background: rgba(255,255,255,0.88);
+      border: 2.5px solid #ffd6e0;
+      border-radius: 26px;
+      padding: 28px 20px 22px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+      box-shadow: 0 8px 28px rgba(242,99,122,0.12);
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .food-card-btn::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 60% 30%, rgba(255,214,224,0.62), transparent 70%);
+      pointer-events: none;
+    }
+
+    .food-card-btn:hover,
+    .food-card-btn:focus-visible {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 14px 38px rgba(242,99,122,0.22);
+      border-color: var(--pink);
+    }
+
+    .food-card-btn:active {
+      transform: scale(0.97);
+    }
+
+    .food-emoji {
+      position: relative;
+      z-index: 1;
+      font-size: 3rem;
+      margin-bottom: 10px;
+      display: block;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+    }
+
+    .food-name {
+      position: relative;
+      z-index: 1;
+      display: block;
+      font-family: var(--title-font);
+      font-size: clamp(1.25rem, 5vw, 1.55rem);
+      font-weight: 800;
+      color: var(--deep-pink);
+      line-height: 1.2;
+    }
+
+    .food-tap-hint {
+      position: relative;
+      z-index: 1;
+      display: block;
+      margin-top: 10px;
+      font-size: 0.75rem;
+      color: var(--pink);
+      letter-spacing: 0.08em;
+      font-weight: 900;
+      opacity: 0.82;
+    }
+
+    .food-vs-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 16px 0;
+      width: 100%;
+    }
+
+    .food-vs-line {
+      flex: 1;
+      height: 1.5px;
+      background: linear-gradient(90deg, transparent, #ffd6e0, transparent);
+    }
+
+    .food-vs-badge {
+      font-family: var(--title-font);
+      font-size: 0.95rem;
+      font-style: italic;
+      color: var(--pink);
+      background: #fff8f8;
+      border: 1.5px solid #ffd6e0;
+      border-radius: 999px;
+      padding: 5px 15px;
+      white-space: nowrap;
+    }
+
+    .food-card-enter-left {
+      animation: foodCardInLeft 0.38s cubic-bezier(.4,0,.2,1) both;
+    }
+
+    .food-card-enter-right {
+      animation: foodCardInRight 0.38s cubic-bezier(.4,0,.2,1) both 0.08s;
+    }
+
+    @keyframes foodCardInLeft {
+      from { opacity: 0; transform: translateX(-30px) scale(0.95); }
+      to { opacity: 1; transform: none; }
+    }
+
+    @keyframes foodCardInRight {
+      from { opacity: 0; transform: translateX(30px) scale(0.95); }
+      to { opacity: 1; transform: none; }
+    }
+
+    .food-winner-glow {
+      animation: foodWinnerPulse 0.45s ease;
+    }
+
+    @keyframes foodWinnerPulse {
+      0% { box-shadow: 0 0 0 0 rgba(242,99,122,0.5); }
+      50% { box-shadow: 0 0 0 18px rgba(242,99,122,0); background: #fff0f4; }
+      100% { box-shadow: 0 8px 28px rgba(242,99,122,0.12); }
+    }
+
+    .food-game-result {
+      position: relative;
+      z-index: 1;
+      display: none;
+      text-align: center;
+      animation: fadeUp 0.6s cubic-bezier(.4,0,.2,1) both;
+    }
+
+    .food-result-crown {
+      font-size: 3.2rem;
+      margin-bottom: 6px;
+    }
+
+    .food-result-label {
+      font-size: 0.78rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 12px;
+      font-weight: 900;
+    }
+
+    .food-winner-card {
+      background: linear-gradient(135deg, #fff0f4, #fff8f8);
+      border: 2.5px solid var(--pink);
+      border-radius: 30px;
+      padding: 32px 24px;
+      margin: 14px 0 24px;
+      box-shadow: 0 12px 44px rgba(242,99,122,0.18);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .food-winner-card::before {
+      content: "♡";
+      position: absolute;
+      font-size: 9rem;
+      color: rgba(242,99,122,0.06);
+      top: -24px;
+      right: -18px;
+      pointer-events: none;
+    }
+
+    .food-winner-emoji {
+      position: relative;
+      z-index: 1;
+      font-size: 4rem;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .food-winner-name {
+      position: relative;
+      z-index: 1;
+      font-family: var(--title-font);
+      font-size: clamp(1.55rem, 7vw, 2.15rem);
+      font-weight: 800;
+      color: var(--deep-pink);
+    }
+
+    .food-love-message {
+      font-style: italic;
+      font-size: clamp(0.92rem, 3.5vw, 1.05rem);
+      color: var(--muted);
+      line-height: 1.8;
+      margin: 20px 0 28px;
+      font-weight: 700;
+    }
+
+    #foodGameConfettiCanvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 121;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @media (max-width: 920px) {
+      .hero-grid,
+      .distance-layout,
+      .soft-heart-game {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-copy {
+        order: 2;
+      }
+
+      .calendar-zone {
+        order: 1;
+      }
+
+      .quote-grid,
+      .letters-grid,
+      .badges-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      h1 {
+        letter-spacing: -2px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .shell {
+        width: min(100% - 22px, 1180px);
+      }
+
+      .top-pill {
+        gap: 8px;
+        padding: 10px 12px;
+        font-size: 0.78rem;
+      }
+
+      .flag {
+        width: 35px;
+        height: 35px;
+      }
+
+      .hero {
+        padding-top: 14px;
+      }
+
+      .hero-copy,
+      .card {
+        border-radius: 24px;
+        padding: 20px;
+      }
+
+      .promise-grid,
+      .quote-grid,
+      .letters-grid,
+      .badges-grid,
+      .choice-row {
+        grid-template-columns: 1fr;
+      }
+
+      .paper-stack {
+        height: 430px;
+      }
+
+      .page-caption {
+        font-size: 0.8rem;
+      }
+
+      .tap-hint {
+        font-size: 0.68rem;
+      }
+
+      .section {
+        padding: 32px 0;
+      }
+
+      .garden {
+        gap: 9px;
+        padding: 17px;
+      }
+
+      .flower {
+        width: 36px;
+        height: 66px;
+      }
+    }
+  </style>
 </head>
+
 <body>
+  <div class="page-bg" aria-hidden="true">
+    <div class="orb one"></div>
+    <div class="orb two"></div>
+    <div class="orb three"></div>
+  </div>
 
-<nav>
-  <div class="nav-mark">we talk · we fix · we stay</div>
-  <div class="nav-links">
-    <a href="#pause">pause</a>
-    <a href="#vow">vow</a>
-    <a href="#calm">calm</a>
-    <a href="#memories">memories</a>
-    <a href="#reset">reset</a>
-    <a href="#together">together</a>
-    <a href="#mood">mood</a>
-  </div>
-</nav>
+  <div class="sparkle-layer" id="sparkleLayer" aria-hidden="true"></div>
+  <div class="heart-layer" id="heartLayer" aria-hidden="true"></div>
+  <div class="confetti-layer" id="confettiLayer" aria-hidden="true"></div>
 
-<header class="hero" id="home">
-  <svg class="hero-decoration" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <circle cx="100" cy="100" r="80" stroke="#b85c4e" stroke-width="0.5" stroke-dasharray="2 4" opacity="0.5"/>
-    <circle cx="100" cy="100" r="50" stroke="#c19056" stroke-width="0.5" opacity="0.4"/>
-    <path d="M100 30 L100 170 M30 100 L170 100" stroke="#8c7660" stroke-width="0.3" opacity="0.3"/>
-  </svg>
-  <svg class="hero-decoration-2" viewBox="0 0 140 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <path d="M5 40 Q 35 5, 70 40 T 135 40" stroke="#b85c4e" stroke-width="1" fill="none"/>
-    <path d="M5 50 Q 35 15, 70 50 T 135 50" stroke="#c19056" stroke-width="0.6" fill="none" opacity="0.6"/>
-  </svg>
-  <div class="hero-inner">
-    <p class="eyebrow">a quiet place for us</p>
-    <h1 class="promise">
-      <span>we talk.</span>
-      <span>we fix.</span>
-      <span>we stay.</span>
-    </h1>
-    <div class="clocks">
-      <div class="clock">
-        <div class="clock-stamp">him</div>
-        <p class="clock-city">Lahore, PK</p>
-        <p class="clock-name" id="himName">—</p>
-        <svg class="clock-analog" viewBox="0 0 200 200" id="lahoreClock" aria-label="Lahore time">
-          <circle class="clock-face" cx="100" cy="100" r="92"/>
-          <circle class="clock-face-inner" cx="100" cy="100" r="78"/>
-          <g class="ticks" data-ticks></g>
-          <text class="clock-numeral" x="100" y="28">12</text>
-          <text class="clock-numeral" x="172" y="100">3</text>
-          <text class="clock-numeral" x="100" y="174">6</text>
-          <text class="clock-numeral" x="28" y="100">9</text>
-          <line class="hour-hand" x1="100" y1="100" x2="100" y2="55" id="lahoreHour"/>
-          <line class="minute-hand" x1="100" y1="100" x2="100" y2="36" id="lahoreMinute"/>
-          <line class="second-hand" x1="100" y1="108" x2="100" y2="32" id="lahoreSecond"/>
-          <circle class="clock-center" cx="100" cy="100" r="3.5"/>
-          <circle class="clock-pin" cx="100" cy="100" r="1.4"/>
-        </svg>
-        <p class="clock-meta"><span class="status-dot" id="lahoreStatus"></span><span id="lahoreStatusText">—</span></p>
-      </div>
-      <div class="between">
-        <span>across</span>
-        <span class="between-line"></span>
-        <span class="between-distance">~5,800 km</span>
-        <span class="between-line"></span>
-        <span>between</span>
-        <span class="between-tz">she's 3hrs ahead</span>
-      </div>
-      <div class="clock">
-        <div class="clock-stamp">her</div>
-        <p class="clock-city">Caraga, PH</p>
-        <p class="clock-name" id="herName">—</p>
-        <svg class="clock-analog" viewBox="0 0 200 200" id="caragaClock" aria-label="Caraga time">
-          <circle class="clock-face" cx="100" cy="100" r="92"/>
-          <circle class="clock-face-inner" cx="100" cy="100" r="78"/>
-          <g class="ticks" data-ticks></g>
-          <text class="clock-numeral" x="100" y="28">12</text>
-          <text class="clock-numeral" x="172" y="100">3</text>
-          <text class="clock-numeral" x="100" y="174">6</text>
-          <text class="clock-numeral" x="28" y="100">9</text>
-          <line class="hour-hand" x1="100" y1="100" x2="100" y2="55" id="caragaHour"/>
-          <line class="minute-hand" x1="100" y1="100" x2="100" y2="36" id="caragaMinute"/>
-          <line class="second-hand" x1="100" y1="108" x2="100" y2="32" id="caragaSecond"/>
-          <circle class="clock-center" cx="100" cy="100" r="3.5"/>
-          <circle class="clock-pin" cx="100" cy="100" r="1.4"/>
-        </svg>
-        <p class="clock-meta"><span class="status-dot" id="caragaStatus"></span><span id="caragaStatusText">—</span></p>
-      </div>
-    </div>
-    <p class="days-counter">
-      <strong id="dayCount">—</strong> days of choosing each other.
-      <span class="days-counter-sub">they said it wouldn't last. day one was the answer. so is today.</span>
-    </p>
-  </div>
-</header>
-
-<section class="pause-section fade-section" id="pause">
-  <div class="section-header">
-    <p class="section-number">— 01 —</p>
-    <h2 class="section-title">the <em>pause</em> room.</h2>
-    <p class="section-tag">when it's getting loud inside. before we say the thing we don't mean.</p>
-  </div>
-  <div class="pause-content">
-    <div class="breath-stage">
-      <div class="breath-circle" id="breathCircle"></div>
-      <span class="breath-text" id="breathText">tap to begin</span>
-    </div>
-    <div class="pause-controls">
-      <p class="pause-timer" id="pauseTimer">10:00</p>
-      <button class="btn" id="pauseBtn">begin</button>
-    </div>
-    <p class="pause-prompt">come back when you can hear them.</p>
-  </div>
-</section>
-
-<section class="vow-section fade-section" id="vow">
-  <div class="section-header">
-    <p class="section-number">— 02 —</p>
-    <h2 class="section-title">the <em>vow</em>.</h2>
-    <p class="section-tag">what we already know. what they don't see. what we keep choosing, fight after fight.</p>
-  </div>
-  <div class="vow-list">
-    <div class="vow-item">
-      <p class="vow-text">it is never <strong>me versus you</strong>.<br>it is always <em>us versus the world</em>.</p>
-    </div>
-    <div class="vow-divider">
-      <svg viewBox="0 0 80 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <line x1="0" y1="7" x2="32" y2="7" stroke="#8c7660" stroke-width="0.6"/>
-        <circle cx="40" cy="7" r="3" fill="#b85c4e"/>
-        <line x1="48" y1="7" x2="80" y2="7" stroke="#8c7660" stroke-width="0.6"/>
-      </svg>
-    </div>
-    <div class="vow-item">
-      <p class="vow-text">they said it wouldn't work.<br>we accepted that as a <em>challenge</em>.<br>not a verdict.</p>
-    </div>
-    <div class="vow-divider">
-      <svg viewBox="0 0 80 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <line x1="0" y1="7" x2="32" y2="7" stroke="#8c7660" stroke-width="0.6"/>
-        <circle cx="40" cy="7" r="3" fill="#b85c4e"/>
-        <line x1="48" y1="7" x2="80" y2="7" stroke="#8c7660" stroke-width="0.6"/>
-      </svg>
-    </div>
-    <div class="vow-item">
-      <p class="vow-text">distance is <em>geography</em>.<br>the bond is <strong>not</strong> geography.</p>
-    </div>
-    <div class="vow-divider">
-      <svg viewBox="0 0 80 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <line x1="0" y1="7" x2="32" y2="7" stroke="#8c7660" stroke-width="0.6"/>
-        <circle cx="40" cy="7" r="3" fill="#b85c4e"/>
-        <line x1="48" y1="7" x2="80" y2="7" stroke="#8c7660" stroke-width="0.6"/>
-      </svg>
-    </div>
-    <div class="vow-item">
-      <p class="vow-text">every fight is just two people on the <strong>same side</strong>,<br>forgetting <em>briefly</em> that they're on the same side.</p>
-    </div>
-    <div class="vow-divider">
-      <svg viewBox="0 0 80 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <line x1="0" y1="7" x2="32" y2="7" stroke="#8c7660" stroke-width="0.6"/>
-        <circle cx="40" cy="7" r="3" fill="#b85c4e"/>
-        <line x1="48" y1="7" x2="80" y2="7" stroke="#8c7660" stroke-width="0.6"/>
-      </svg>
-    </div>
-    <div class="vow-item">
-      <p class="vow-text">when one of us breaks,<br>the other <em>carries both</em>.<br>that's the agreement.</p>
-    </div>
-    <div class="vow-divider">
-      <svg viewBox="0 0 80 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <line x1="0" y1="7" x2="32" y2="7" stroke="#8c7660" stroke-width="0.6"/>
-        <circle cx="40" cy="7" r="3" fill="#b85c4e"/>
-        <line x1="48" y1="7" x2="80" y2="7" stroke="#8c7660" stroke-width="0.6"/>
-      </svg>
-    </div>
-    <div class="vow-item">
-      <p class="vow-text">we did not <em>fall</em> into this.<br>we walked in. <strong>eyes open</strong>. on purpose.</p>
-    </div>
-  </div>
-  <div class="vow-closing">
-    <p class="vow-closing-mark">— and we keep walking —</p>
-    <p class="vow-closing-text">we chose us.<br>we keep choosing <em>us</em>.</p>
-  </div>
-</section>
-
-<section class="calm-section fade-section" id="calm">
-  <div class="section-header">
-    <p class="section-number">— 03 —</p>
-    <h2 class="section-title">when the head <em>spirals</em>.</h2>
-    <p class="section-tag">letters from the calm version of you, to the panicking one.</p>
-  </div>
-  <div class="calm-stack" id="calmStack"></div>
-  <div class="calm-controls">
-    <button class="calm-arrow" id="calmPrev" aria-label="previous">‹</button>
-    <span class="calm-counter" id="calmCounter">— · —</span>
-    <button class="calm-arrow" id="calmNext" aria-label="next">›</button>
-  </div>
-</section>
-
-<section class="memory-section fade-section" id="memories">
-  <div class="section-header">
-    <p class="section-number">— 04 —</p>
-    <h2 class="section-title">the <em>memory</em> wall.</h2>
-    <p class="section-tag">for the 3am spiral, when you need proof that the good is real.</p>
-  </div>
-  <div class="memory-wall" id="memoryWall">
-    <div class="polaroid" data-src="https://i.ibb.co/gcPbrCd/Love-1.png">
-      <img src="https://i.ibb.co/gcPbrCd/Love-1.png" alt="memory" loading="lazy">
-      <div class="polaroid-caption">my favorite person</div>
-    </div>
-    <div class="polaroid" data-src="https://i.ibb.co/939wRSPz/Love-2.png">
-      <img src="https://i.ibb.co/939wRSPz/Love-2.png" alt="memory" loading="lazy">
-      <div class="polaroid-caption">that smile fixes me</div>
-    </div>
-    <div class="polaroid" data-src="https://i.ibb.co/GfX6wHft/Love-3.png">
-      <img src="https://i.ibb.co/GfX6wHft/Love-3.png" alt="memory" loading="lazy">
-      <div class="polaroid-caption">my crazy filipina</div>
-    </div>
-    <div class="polaroid" data-src="https://i.ibb.co/21q4ds8N/Love-4.png">
-      <img src="https://i.ibb.co/21q4ds8N/Love-4.png" alt="memory" loading="lazy">
-      <div class="polaroid-caption">my cute pie</div>
-    </div>
-  </div>
-</section>
-<div class="lightbox" id="lightbox">
-  <img id="lightboxImg" src="" alt="enlarged memory">
-</div>
-
-<section class="reset-section fade-section" id="reset">
-  <div class="section-header">
-    <p class="section-number">— 05 —</p>
-    <h2 class="section-title">the <em>reset</em>.</h2>
-    <p class="section-tag">after the storm. three small steps to choose us again.</p>
-  </div>
-  <div class="reset-flow" id="resetFlow">
-    <div class="reset-progress">
-      <span class="reset-dot active"></span>
-      <span class="reset-dot"></span>
-      <span class="reset-dot"></span>
-    </div>
-    <div class="reset-step active" data-step="1">
-      <p class="reset-step-number">— step one —</p>
-      <p class="reset-step-prompt"><em>pause</em>.<br>just for a moment. let it cool.</p>
-      <div class="mini-breath-stage"><div class="mini-breath-circle"></div></div>
-      <div class="reset-step-actions">
-        <span></span>
-        <button class="btn" data-next="2">i'm steadier</button>
-      </div>
-    </div>
-    <div class="reset-step" data-step="2">
-      <p class="reset-step-number">— step two —</p>
-      <p class="reset-step-prompt">say the promise out loud.<br>alone, or <em>together</em>. but mean it.</p>
-      <div class="reset-promise-display">
-        <p>we talk.<br><em>we fix.</em><br>we stay.</p>
-      </div>
-      <div class="reset-step-actions">
-        <button class="btn-small" data-prev="1">back</button>
-        <button class="btn" data-next="3">we said it</button>
-      </div>
-    </div>
-    <div class="reset-step" data-step="3">
-      <p class="reset-step-number">— step three —</p>
-      <p class="reset-step-prompt">now <em>choose us</em> again.<br>one more time.<br>like you did the first time.</p>
-      <button class="btn-choose" id="chooseBtn">i choose us</button>
-      <div class="reset-step-actions" style="margin-top: 36px;">
-        <button class="btn-small" data-prev="2">back</button>
-        <span></span>
-      </div>
-    </div>
-    <div class="reset-complete" id="resetCompleteMsg">
-      <div class="reset-complete-mark">·  ·  ·</div>
-      <p class="reset-complete-text">we chose us.<br><em>again.</em><br>like every other time.</p>
-      <p class="reset-complete-sub">— the world doesn't get to vote —</p>
-      <button class="btn-soft" id="resetRestart">close · for now</button>
-    </div>
-  </div>
-</section>
-
-<section class="together-section fade-section" id="together">
-  <div class="section-header">
-    <p class="section-number">— 06 —</p>
-    <h2 class="section-title"><em>together</em>, even apart.</h2>
-    <p class="section-tag">press it when your heart finds them. each press is kept here, like a little proof.</p>
-  </div>
-  <button class="heart-button" id="heartBtn" aria-label="thinking of you">
-    <svg class="heart-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-    </svg>
-  </button>
-  <p class="together-message" id="togetherMessage">tap when your heart finds them.</p>
-  <div class="together-log">
-    <p class="together-log-title">our moments</p>
-    <ul class="moment-list" id="momentList">
-      <li class="moment-empty">the first one starts here.</li>
-    </ul>
-  </div>
-</section>
-
-<!-- ============ MOOD METER ============ -->
-<section class="upset-section fade-section" id="mood">
-  <div class="section-header">
-    <p class="section-number">— 07 —</p>
-    <h2 class="section-title">the <em>mood</em> meter.</h2>
-    <p class="section-tag">no judgment here. just slide it to where you actually are right now.</p>
-  </div>
-  <div class="upset-sticker-wrap">
-    <div class="upset-sticker" id="upsetSticker">
-      <div class="upset-emoji-ring" id="upsetRing">
-        <span class="upset-emoji" id="upsetEmoji">😊</span>
-      </div>
-      <p class="upset-percent-badge" id="upsetPercent">10%</p>
-      <p class="upset-mood-label" id="upsetMoodLabel">barely a ripple</p>
-      <p class="upset-mood-sub" id="upsetMoodSub">he's probably trying his best, tbh.</p>
-      <div class="upset-slider-area">
-        <div class="upset-scale-emojis">
-          <span>🥰</span>
-          <span>🙂</span>
-          <span>😐</span>
-          <span>😒</span>
-          <span>😠</span>
-          <span>😭</span>
+  <main>
+    <section class="hero">
+      <div class="shell">
+        <div class="top-pill">
+          <img class="flag" id="pakistanFlagTop" alt="Pakistan flag" />
+          <span>Lahore to Caraga, heart to heart</span>
+          <img class="flag" id="philippinesFlagTop" alt="Philippines flag" />
         </div>
-        <input type="range" class="upset-slider" id="upsetSlider" min="0" max="100" step="10" value="10">
-        <div class="upset-scale-words">
-          <span>all fine</span>
-          <span>somewhere in between</span>
-          <span>send help</span>
+
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <div class="eyebrow">For Vaniza, from Your Guy 💌</div>
+
+            <h1>
+              My favorite
+              <span class="script-word">memory</span>
+              is us.
+            </h1>
+
+            <p class="typing-line">
+              <span id="typingText"></span><span class="typing-cursor"></span>
+            </p>
+
+            <div class="timer-card">
+              <div class="timer-label">Our little forever clock</div>
+              <div class="timer-text" id="relationshipTimer">
+                Calculating our beautiful days...
+              </div>
+            </div>
+
+            <div class="promise-grid" aria-label="Our promise">
+              <div>We Talk</div>
+              <div>We Fix</div>
+              <div>We Stay</div>
+            </div>
+          </div>
+
+          <div class="calendar-zone">
+            <div class="calendar-glow"></div>
+
+            <div class="paper-stack" id="paperStack" aria-label="Romantic memory calendar"></div>
+
+            <div class="animation-status" id="animationStatus">
+              Opening our memories...
+            </div>
+
+            <div class="hero-actions">
+              <button class="btn hidden" id="loveLetterButton">💌 Open my letter</button>
+              <button class="btn secondary" id="musicButton">🎵 Music</button>
+            </div>
+          </div>
         </div>
       </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="card">
+          <h2 class="section-title">The side we are always on 💞</h2>
+          <p class="section-subtitle">
+            No distance, no bad day, no misunderstanding gets to be bigger than us.
+          </p>
+
+          <div class="quote-grid">
+            <div class="quote-card">
+              it is never me versus you.<br />
+              it is always us versus the world.
+            </div>
+
+            <div class="quote-card">
+              they said it wouldn't work.<br />
+              we accepted that as a challenge.<br />
+              not a verdict.
+            </div>
+
+            <div class="quote-card">
+              every fight is just two people on the same side,<br />
+              forgetting briefly that they're on the same side.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="card">
+          <h2 class="section-title">Who’s heart softs first after every fight? 🥺</h2>
+          <p class="section-subtitle">
+            A tiny love game for the truth we both already know: no fight is stronger than us.
+          </p>
+
+          <div class="soft-heart-game">
+            <div class="soft-heart-visual">
+              <div>
+                <div class="soft-heart-big" id="softHeartBig">💗</div>
+                <p class="section-subtitle" style="margin: 0;">
+                  Tap one and let the heart confess.
+                </p>
+              </div>
+            </div>
+
+            <div class="soft-heart-options">
+              <div class="choice-row">
+                <button class="choice-btn" data-choice="Vaniza">
+                  <span>🌸</span>
+                  Vaniza
+                </button>
+
+                <button class="choice-btn" data-choice="My Guy">
+                  <span>🫶</span>
+                  My Guy
+                </button>
+              </div>
+
+              <div class="soft-result" id="softResult">
+                Pick who melts first after a fight. But honestly, love always wins before pride does.
+              </div>
+
+              <div class="soft-score">
+                <div class="score-line">
+                  <div class="score-top">
+                    <span>Vaniza</span>
+                    <span id="vanizaScoreText">0</span>
+                  </div>
+                  <div class="score-track">
+                    <div class="score-fill" id="vanizaScoreFill"></div>
+                  </div>
+                </div>
+
+                <div class="score-line">
+                  <div class="score-top">
+                    <span>My Guy</span>
+                    <span id="myGuyScoreText">0</span>
+                  </div>
+                  <div class="score-track">
+                    <div class="score-fill" id="myGuyScoreFill"></div>
+                  </div>
+                </div>
+
+                <button class="btn secondary" id="resetSoftGame">Reset this cute fight game</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="card">
+          <h2 class="section-title">Our memory timeline ✨</h2>
+          <p class="section-subtitle">
+            A soft little place for every milestone we keep adding together.
+          </p>
+
+          <div class="timeline" id="timeline"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="card">
+          <h2 class="section-title">Long distance, same heartbeat 🌙</h2>
+          <p class="section-subtitle">
+            Even across miles, you’re still my favorite place.
+          </p>
+
+          <div class="distance-layout">
+            <div class="city-card">
+              <img id="pakistanFlag" alt="Pakistan flag" />
+              <h3>Your Guy</h3>
+              <p>Lahore, Pakistan</p>
+            </div>
+
+            <div class="love-map" aria-label="Animated connection between two places">
+              <svg viewBox="0 0 600 230" role="img" aria-label="A glowing love line connecting two hearts">
+                <defs>
+                  <linearGradient id="loveGradient" x1="0%" x2="100%">
+                    <stop offset="0%" stop-color="#ff6fae" />
+                    <stop offset="100%" stop-color="#b77cff" />
+                  </linearGradient>
+                </defs>
+
+                <path
+                  class="map-line"
+                  d="M80 140 C 190 30, 405 30, 520 140"
+                  fill="none"
+                  stroke="url(#loveGradient)"
+                  stroke-width="7"
+                  stroke-linecap="round"
+                />
+
+                <circle cx="80" cy="140" r="14" fill="#ff6fae" opacity="0.72" />
+                <circle cx="520" cy="140" r="14" fill="#b77cff" opacity="0.72" />
+
+                <text class="map-heart" x="280" y="78" text-anchor="middle" font-size="42">💖</text>
+                <text x="80" y="184" text-anchor="middle" fill="#d93d83" font-weight="800">Lahore</text>
+                <text x="520" y="184" text-anchor="middle" fill="#8b58dd" font-weight="800">Caraga</text>
+              </svg>
+            </div>
+
+            <div class="city-card">
+              <img id="philippinesFlag" alt="Philippines flag" />
+              <h3>Vaniza</h3>
+              <p>Caraga, Philippines</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="card compliment-box">
+          <h2 class="section-title">Why I love you today 💗</h2>
+          <p class="section-subtitle">
+            For the days when you need a tiny reminder of how loved you are.
+          </p>
+
+          <button class="btn" id="complimentButton">Why I Love You Today</button>
+          <div class="compliment-result" id="complimentResult">
+            Click the button and let my heart answer.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="card">
+          <h2 class="section-title">Vaniza’s Filipino Food Game 🍽️💕</h2>
+          <p class="section-subtitle">
+            A cute little game where she taps the food her heart wants more, until one favorite wins.
+          </p>
+
+          <button class="btn" id="foodGameStartButton">
+            🍽️ Play Vaniza’s Food Game
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="card">
+          <h2 class="section-title">Open-when letters 💌</h2>
+          <p class="section-subtitle">
+            Little envelopes for little moments when I wish I could hold your hand immediately.
+          </p>
+
+          <div class="letters-grid" id="openWhenLetters"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="card capsule-only">
+          <h2 class="section-title">Love Capsule 🔒</h2>
+          <p class="section-subtitle">
+            A future message that waits quietly until the right moment.
+          </p>
+
+          <div class="capsule-lock">
+            <div class="big-number" id="capsuleDays">🔒</div>
+            <p id="capsuleText">A love capsule is waiting for the perfect moment.</p>
+            <br />
+            <button class="btn secondary" id="capsuleButton">Open Love Capsule</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="card">
+          <h2 class="section-title">Digital flower garden 🌸</h2>
+          <p class="section-subtitle">
+            Every day together grows one more flower. Touch any flower and it will bloom for her.
+          </p>
+
+          <div class="garden" id="flowerGarden" aria-label="Digital flower garden"></div>
+          <p class="garden-note" id="gardenNote"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="card">
+          <h2 class="section-title">Relationship achievements 🏆</h2>
+          <p class="section-subtitle">
+            Tiny badges for the big magic we keep building.
+          </p>
+
+          <div class="badges-grid" id="badgesGrid"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="final-message">
+          <h2>
+            No matter how many days pass,<br />
+            I will keep choosing you every single day 💖
+          </h2>
+          <p>
+            We will always choose eachother. Through quiet days, hard days, silly days,
+            soft days, and every day still waiting for us.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    Made with love for Vaniza — from Your Guy 💕
+  </footer>
+
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-box">
+      <button class="modal-close" id="modalClose" aria-label="Close modal">×</button>
+      <h2 class="modal-title" id="modalTitle"></h2>
+      <div class="modal-body" id="modalBody"></div>
     </div>
   </div>
-</section>
 
-<footer>
-  <p class="promise-mini">we talk · <em>we fix</em> · we stay</p>
-  <p>lahore — caraga</p>
-  <p class="signature">made with love, on purpose.</p>
-</footer>
+  <div class="food-game-overlay" id="foodGameOverlay" aria-hidden="true">
+    <canvas id="foodGameConfettiCanvas"></canvas>
 
-<script>
-const CONFIG = {
-  himName: "Your Guy",
-  herName: "Vaniza",
-  startDate: "2026-02-27",
-};
+    <div class="food-game-panel">
+      <button class="food-game-close" id="foodGameCloseButton" aria-label="Close food game">×</button>
 
-const LAHORE_OFFSET = 5;
-const CARAGA_OFFSET = 8;
+      <div class="food-game-hearts" id="foodGameHearts"></div>
 
-const $ = (sel) => document.querySelector(sel);
-const $$ = (sel) => document.querySelectorAll(sel);
+      <div class="food-game-header">
+        <p class="food-game-eyebrow">A love game just for you 💌</p>
+        <h2>Anong Gusto Mo,<br>Mahal Ko?</h2>
+        <p>Tap the food your heart craves more~</p>
+      </div>
 
-$('#himName').textContent = CONFIG.himName;
-$('#herName').textContent = CONFIG.herName;
+      <div class="food-game-progress" id="foodGameProgressWrap">
+        <p id="foodGameProgressLabel">Round 1 of 12</p>
+        <div class="food-game-progress-bar">
+          <div class="food-game-progress-fill" id="foodGameProgressFill"></div>
+        </div>
+      </div>
 
-function buildTicks() {
-  $$('[data-ticks]').forEach(group => {
-    for (let i = 0; i < 60; i++) {
-      const isMajor = i % 5 === 0;
-      const tick = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-      tick.setAttribute('x1', 100);
-      tick.setAttribute('y1', isMajor ? 12 : 14);
-      tick.setAttribute('x2', 100);
-      tick.setAttribute('y2', isMajor ? 18 : 16);
-      tick.setAttribute('class', isMajor ? 'tick major' : 'tick');
-      tick.setAttribute('transform', `rotate(${i * 6} 100 100)`);
-      group.appendChild(tick);
+      <div class="food-game-arena" id="foodGameArena">
+        <button class="food-card-btn" id="foodGameTopCard" type="button">
+          <span class="food-emoji" id="foodGameTopEmoji">🍲</span>
+          <span class="food-name" id="foodGameTopName">Beef Adobo</span>
+          <span class="food-tap-hint">♡ tap to choose ♡</span>
+        </button>
+
+        <div class="food-vs-row">
+          <div class="food-vs-line"></div>
+          <div class="food-vs-badge">or this?</div>
+          <div class="food-vs-line"></div>
+        </div>
+
+        <button class="food-card-btn" id="foodGameBottomCard" type="button">
+          <span class="food-emoji" id="foodGameBottomEmoji">🍜</span>
+          <span class="food-name" id="foodGameBottomName">Chicken Sinigang</span>
+          <span class="food-tap-hint">♡ tap to choose ♡</span>
+        </button>
+      </div>
+
+      <div class="food-game-result" id="foodGameResultScreen">
+        <div class="food-result-crown">👑</div>
+        <p class="food-result-label">Your Favorite Filipino Food</p>
+
+        <div class="food-winner-card">
+          <span class="food-winner-emoji" id="foodGameResultEmoji">🍲</span>
+          <div class="food-winner-name" id="foodGameResultName">Beef Adobo</div>
+        </div>
+
+        <p class="food-love-message" id="foodGameLoveMessage"></p>
+
+        <button class="btn" id="foodGameRestartButton" type="button">
+          ♡ Play Again ♡
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <audio id="bgMusic" loop preload="auto"></audio>
+
+  <script>
+    const START_YEAR = 2026;
+    const START_MONTH_INDEX = 1;
+    const START_DAY = 28;
+    const START_HOUR = 0;
+    const START_MINUTE = 0;
+
+    const MUSIC_FILE = "";
+
+    const FLAGS = {
+      philippines: "https://i.ibb.co/rRXfNvg4/images.png",
+      pakistan: "https://i.ibb.co/GQb3j7Fb/Flag-of-Pakistan-svg.png"
+    };
+
+    const REMOTE_PHOTOS = [
+      "https://i.ibb.co/CsBpxbYK/Whats-App-Image-2026-05-02-at-2-35-46-PM.jpg",
+      "https://i.ibb.co/qY35PnC2/28-April-2026-1.jpg",
+      "https://i.ibb.co/GfZJ3JP4/27-april-2026-1.jpg",
+      "https://i.ibb.co/rGhX9x7p/16-April-2026.jpg",
+      "https://i.ibb.co/gcPbrCd/Love-1.png",
+      "https://i.ibb.co/939wRSPz/Love-2.png",
+      "https://i.ibb.co/GfX6wHft/Love-3.png",
+      "https://i.ibb.co/21q4ds8N/Love-4.png",
+      "https://i.ibb.co/Y423SM6D/vanizaaaaa-1594526881-2351384369016131165-38348874052.jpg",
+      "https://i.ibb.co/zVxnN8Q3/vanizaaaaa-1612440540-2501655032152496463-38348874052.jpg",
+      "https://i.ibb.co/wNbMmTDN/vanizaaaaa-1617106095-2540792540979038231-38348874052.jpg",
+      "https://i.ibb.co/BHRvvKwQ/vanizaaaaa-1617106095-2540792540996026923-38348874052.jpg",
+      "https://i.ibb.co/rKcNM5Dm/vanizaaaaa-1642852270-2756767108393020033-38348874052.webp",
+      "https://i.ibb.co/DDLYLvtz/vanizaaaaa-1642852270-2756767108409690860-38348874052.webp",
+      "https://i.ibb.co/NnYhjydg/vanizaaaaa-1642852270-2756767108418111485-38348874052.webp",
+      "https://i.ibb.co/KcrjdN7y/vanizaaaaa-1642852270-2756767108560669377-38348874052.webp",
+      "https://i.ibb.co/bgRq1QSr/vanizaaaaa-1649690434-2814129785746183682-38348874052.webp",
+      "https://i.ibb.co/kgYSjd8H/vanizaaaaa-1649690434-2814129785771281370-38348874052.webp",
+      "https://i.ibb.co/vv3sxmY2/vanizaaaaa-1649763896-2814746031487385698-38348874052.webp",
+      "https://i.ibb.co/pvN767sJ/vanizaaaaa-1649763896-2814746031495720223-38348874052.webp",
+      "https://i.ibb.co/0RjdZGRH/vanizaaaaa-1649763896-2814746031504006019-38348874052.webp",
+      "https://i.ibb.co/cKvth2Vy/vanizaaaaa-1649763896-2814746031688529736-38348874052.webp",
+      "https://i.ibb.co/5hm94Kw0/vanizaaaaa-1652884030-2840919615381206377-38348874052.webp",
+      "https://i.ibb.co/KgNvw0M/vanizaaaaa-1652884030-2840919615381208312-38348874052.webp",
+      "https://i.ibb.co/qYgG4tjF/vanizaaaaa-1652884030-2840919615381208478-38348874052.webp",
+      "https://i.ibb.co/BH0X7KvZ/vanizaaaaa-1652884030-2840919615381377831-38348874052.webp",
+      "https://i.ibb.co/J8TJpb1/vanizaaaaa-1652884030-2840919615540716579-38348874052.webp",
+      "https://i.ibb.co/LX034Lr5/vanizaaaaa-1652884030-2840919615591094603-38348874052.webp",
+      "https://i.ibb.co/FbxzCwZq/vanizaaaaa-1682084970-3085874849928292423-38348874052.webp",
+      "https://i.ibb.co/jv2y4drx/vanizaaaaa-1682084970-3085874850096113894-38348874052.webp",
+      "https://i.ibb.co/LD1rZckx/vanizaaaaa-1682735561-3091332401268004265-38348874052.jpg",
+      "https://i.ibb.co/pjZ1r5f5/vanizaaaaa-1701561580-3249256495179209388-38348874052.webp",
+      "https://i.ibb.co/FbLk4QWM/vanizaaaaa-1701561580-3249256495187511103-38348874052.webp",
+      "https://i.ibb.co/VWW1G9Gz/vanizaaaaa-1701561580-3249256495187649181-38348874052.webp",
+      "https://i.ibb.co/PsyCm3zy/vanizaaaaa-1701561580-3249256495363668882-38348874052.webp",
+      "https://i.ibb.co/TM4KXQGB/vanizaaaaa-1736074881-3538775054337431451-38348874052.webp",
+      "https://i.ibb.co/hJtjyVmv/vanizaaaaa-1736074881-3538775054446382463-38348874052.webp",
+      "https://i.ibb.co/bM5k71Tm/vanizaaaaa-1741356771-3583082757486102738-38348874052.webp",
+      "https://i.ibb.co/nqhGPG1M/vanizaaaaa-1741356771-3583082757486254613-38348874052.webp",
+      "https://i.ibb.co/tTrk2p15/vanizaaaaa-1771194731-3833381543730194757-38348874052.webp",
+      "https://i.ibb.co/tPxDrRxz/vanizaaaaa-1771194731-3833381552336894432-38348874052.webp",
+      "https://i.ibb.co/ymhWYT4S/vanizaaaaa-1771194731-3833381567746781751-38348874052.webp",
+      "https://i.ibb.co/cKgKgt0V/vanizaaaaa-1771194731-3833381574482806105-38348874052.webp"
+    ];
+
+    const CAPTIONS = {
+      1: "The day my heart found a softer reason to smile 💖",
+      2: "You looked beautiful in a way my words still cannot fully explain 🌸",
+      3: "Another memory, another reason to thank the universe for you ✨",
+      4: "Even from far away, you felt close to my heart 🌙",
+      5: "This is us: soft, silly, strong, and still choosing eachother 💕",
+      6: "Some pictures are not just pictures. They are tiny homes for feelings 🫶",
+      7: "You became my favorite notification, my favorite thought, my favorite person 💗",
+      8: "No distance can make my heart forget where it belongs 💞"
+    };
+
+    const OPENING_MESSAGE = "Every day with you becomes my favorite memory 💕";
+
+    const LOVE_LETTER = `
+Dear Vaniza,
+
+I know we are far from each other, but somehow you still feel close to the softest part of me.
+
+You are not just someone I talk to.
+You are someone I choose.
+Again and again.
+In calm moments, in confusing moments, in happy moments, and even in the moments where we have to fix things gently.
+
+I promise you this:
+
+We Talk.
+We Fix.
+We Stay.
+
+It is never me versus you.
+It is always us versus the world.
+
+And if the world ever says this is too hard, then we will smile quietly, hold on tighter, and accept that as a challenge, not a verdict.
+
+You are my favorite place, even when you are miles away.
+
+Always,
+Your Guy
+`;
+
+    const LOVE_CAPSULE_UNLOCK = "2026-12-31T00:00:00+05:00";
+
+    const LOVE_CAPSULE_MESSAGE = `
+My future Vaniza,
+
+If this capsule opened, it means time kept moving and my heart kept choosing you.
+
+I hope you are smiling right now.
+I hope you know how deeply loved you are.
+I hope you remember that no matter how many days pass, I am still here, still grateful, still proud of us.
+
+You are worth the wait.
+You are worth the effort.
+You are worth the promise.
+
+Forever choosing you,
+Your Guy
+`;
+
+    const MILESTONES = [
+      {
+        icon: "💬",
+        title: "First Talk",
+        text: "The moment one simple conversation quietly became something special."
+      },
+      {
+        icon: "🌙",
+        title: "Late Night Messages",
+        text: "The hours where distance felt smaller because your words were there."
+      },
+      {
+        icon: "📞",
+        title: "First Call",
+        text: "A milestone waiting to become one of our sweetest memories."
+      },
+      {
+        icon: "💖",
+        title: "Our Promise",
+        text: "We Talk. We Fix. We Stay."
+      },
+      {
+        icon: "🫶",
+        title: "Always Choosing Eachother",
+        text: "Not only when it is easy, but especially when love asks us to be gentle."
+      }
+    ];
+
+    const COMPLIMENTS = [
+      "I love the way your presence makes even ordinary days feel softer.",
+      "I love you because your heart feels like home, even from far away.",
+      "I love how you make me want to be more patient, more gentle, and more sure.",
+      "I love your smile because it stays in my mind longer than any distance can.",
+      "I love that with you, fixing things feels more important than winning.",
+      "I love you because you are my favorite person to miss and my favorite person to choose.",
+      "I love the way you became part of my prayers, my plans, and my peace.",
+      "I love you because even silence feels warmer when it belongs to us.",
+      "I love your softness, your strength, and the beautiful way you are simply you.",
+      "I love that our story feels like a challenge we are brave enough to keep accepting."
+    ];
+
+    const OPEN_WHEN_LETTERS = [
+      {
+        icon: "🌙",
+        title: "Open when you miss me",
+        preview: "For the moments distance feels loud.",
+        message: "My Vaniza, when you miss me, place your hand on your heart and remember this: somewhere in Lahore, Your Guy is carrying you in his heart too. We are under the same sky, loving through the same distance, waiting for the same hug."
+      },
+      {
+        icon: "☁️",
+        title: "Open when you feel sad",
+        preview: "For your heavy-heart days.",
+        message: "Sweetheart, you do not have to be strong every second. Some days are soft, some days are heavy, and some days only ask you to breathe. I am proud of you. I am with you. We Talk. We Fix. We Stay."
+      },
+      {
+        icon: "🤗",
+        title: "Open when you need a hug",
+        preview: "A tiny digital hug from me.",
+        message: "Come here, my love. Imagine me holding you gently and telling you that everything will be okay. Not because life is always easy, but because you will not have to face everything alone."
+      },
+      {
+        icon: "✨",
+        title: "Open when you can’t sleep",
+        preview: "A sleepy little love note.",
+        message: "Close your eyes, Vaniza. Let the day rest. Let your thoughts become quiet. I hope my love reaches you like a soft blanket. Sleep knowing you are loved, chosen, and missed."
+      }
+    ];
+
+    const ACHIEVEMENTS = [
+      { days: 7, icon: "🌱", title: "7 Days Together", text: "A tiny beginning with a big heartbeat." },
+      { days: 30, icon: "🌸", title: "30 Days Together", text: "A whole garden of conversations." },
+      { days: 100, icon: "💎", title: "100 Days Together", text: "Proof that we keep showing up." },
+      { days: 365, icon: "👑", title: "1 Year Together", text: "A full circle around the sun, still choosing eachother." }
+    ];
+
+    const SOFT_GAME_MESSAGES = {
+      "Vaniza": [
+        "Vaniza’s heart softs first because love looks too cute on her to stay mad. But My Guy is already typing sorry too 🥺",
+        "Vaniza softs first... maybe because her heart is made of flowers and tiny forgiveness petals 🌸",
+        "Vaniza’s heart whispered first: okay, let’s fix this. That is why she is precious 💗"
+      ],
+      "My Guy": [
+        "My Guy softs first because he cannot stay strong when the person is Vaniza. Pride loses instantly 🫶",
+        "My Guy melts first. One thought of Vaniza and the fight becomes smaller than love 💖",
+        "My Guy’s heart already ran back before his ego could even stand up properly 🥺"
+      ]
+    };
+
+    const FLOWER_MESSAGES = [
+      "This flower bloomed because she touched it 🌸",
+      "A tiny flower for Vaniza’s soft heart 💗",
+      "Another bloom, another reason to choose eachother 🫶",
+      "This flower says: We Talk. We Fix. We Stay.",
+      "A little garden kiss from Your Guy 💕"
+    ];
+
+    const FOOD_GAME_FOODS = [
+      { name: "Beef Adobo", emoji: "🍖" },
+      { name: "Chicken Sinigang", emoji: "🍲" },
+      { name: "Chicken Sisig", emoji: "🥘" },
+      { name: "Beef Kare-Kare", emoji: "🫕" },
+      { name: "Jollibee", emoji: "🐝" },
+      { name: "Chicken Lumpia", emoji: "🌯" },
+      { name: "Seafood Pancit", emoji: "🍝" },
+      { name: "Halal Kwek Kwek", emoji: "🍡" },
+      { name: "Roasted Chicken", emoji: "🍗" },
+      { name: "Beef Siomai", emoji: "🥟" },
+      { name: "Chicken Menudo", emoji: "🍛" },
+      { name: "Chicken Bicol Express", emoji: "🌶️" },
+      { name: "Halal Halo-Halo", emoji: "🍨" }
+    ];
+
+    const FOOD_GAME_LOVE_MESSAGES = {
+      "Beef Adobo": "Masarap at malalim, tulad ng pagmamahal ko sa 'yo. You always know what your heart wants — and I love that about you. 🍖💕",
+      "Chicken Sinigang": "Matamis at maasim, tulad ng buhay na puno ng kilig. Just like our love story — warm, comforting, and always worth coming back to. 🍲❤️",
+      "Chicken Sisig": "Bold ka, aking mahal. You know exactly what you like — and I love every single thing about you. 🥘✨",
+      "Beef Kare-Kare": "Rich, warm, and full of layers — just like you. Every day I learn something new to love about you. 🫕💛",
+      "Jollibee": "Masaya, colorful, and loved by everyone — just like you. You're my number one, mahal ko, always and forever. 🐝💗",
+      "Chicken Lumpia": "Golden and full of surprises — like every day spent loving you. You're my favorite kind of adventure. 🌯💕",
+      "Seafood Pancit": "Long noodles for a long and happy life together. That's my wish for us, mahal ko. 🍝🌙",
+      "Halal Kwek Kwek": "Fun, colorful, and absolutely irresistible — just like you. You bring so much joy into my life. 🍡🌈",
+      "Roasted Chicken": "Timeless and tender, just like my love for you. Some things only get better with time. 🍗🤍",
+      "Beef Siomai": "Small but so full of flavor — every moment with you is worth savoring. Mahal kita nang sobra. 🥟💌",
+      "Chicken Menudo": "Warm, hearty, and made with so much love — exactly how I feel about you every single day. 🍛❤️",
+      "Chicken Bicol Express": "A little spicy, a little sweet — and totally unforgettable. You set my heart on fire, mahal ko. 🌶️🔥",
+      "Halal Halo-Halo": "Sweet, colorful, and one-of-a-kind — just like you. There's no one in this world quite like my girl. 🍨🌸"
+    };
+
+    const MAX_ANIMATED_PAGES = 26;
+    const MAX_FLOWERS_TO_DRAW = 90;
+
+    const startMoment = new Date(
+      START_YEAR,
+      START_MONTH_INDEX,
+      START_DAY,
+      START_HOUR,
+      START_MINUTE,
+      0,
+      0
+    );
+
+    const dom = {
+      paperStack: document.getElementById("paperStack"),
+      animationStatus: document.getElementById("animationStatus"),
+      relationshipTimer: document.getElementById("relationshipTimer"),
+      typingText: document.getElementById("typingText"),
+      loveLetterButton: document.getElementById("loveLetterButton"),
+      musicButton: document.getElementById("musicButton"),
+      bgMusic: document.getElementById("bgMusic"),
+      modal: document.getElementById("modal"),
+      modalTitle: document.getElementById("modalTitle"),
+      modalBody: document.getElementById("modalBody"),
+      modalClose: document.getElementById("modalClose"),
+      toast: document.getElementById("toast"),
+      sparkleLayer: document.getElementById("sparkleLayer"),
+      heartLayer: document.getElementById("heartLayer"),
+      confettiLayer: document.getElementById("confettiLayer"),
+      timeline: document.getElementById("timeline"),
+      complimentButton: document.getElementById("complimentButton"),
+      complimentResult: document.getElementById("complimentResult"),
+      openWhenLetters: document.getElementById("openWhenLetters"),
+      capsuleDays: document.getElementById("capsuleDays"),
+      capsuleText: document.getElementById("capsuleText"),
+      capsuleButton: document.getElementById("capsuleButton"),
+      flowerGarden: document.getElementById("flowerGarden"),
+      gardenNote: document.getElementById("gardenNote"),
+      badgesGrid: document.getElementById("badgesGrid"),
+      philippinesFlag: document.getElementById("philippinesFlag"),
+      pakistanFlag: document.getElementById("pakistanFlag"),
+      philippinesFlagTop: document.getElementById("philippinesFlagTop"),
+      pakistanFlagTop: document.getElementById("pakistanFlagTop"),
+      softHeartBig: document.getElementById("softHeartBig"),
+      softResult: document.getElementById("softResult"),
+      vanizaScoreText: document.getElementById("vanizaScoreText"),
+      myGuyScoreText: document.getElementById("myGuyScoreText"),
+      vanizaScoreFill: document.getElementById("vanizaScoreFill"),
+      myGuyScoreFill: document.getElementById("myGuyScoreFill"),
+      resetSoftGame: document.getElementById("resetSoftGame")
+    };
+
+    function clamp(number, min, max) {
+      return Math.max(min, Math.min(number, max));
     }
-  });
-}
-buildTicks();
 
-function timeForOffset(offsetHours) {
-  const utcMs = Date.now();
-  const localMs = utcMs + offsetHours * 3600 * 1000;
-  const date = new Date(localMs);
-  const totalSec =
-    date.getUTCHours() * 3600 +
-    date.getUTCMinutes() * 60 +
-    date.getUTCSeconds() +
-    date.getUTCMilliseconds() / 1000;
-  return {
-    hours: (totalSec / 3600) % 24,
-    minutes: (totalSec / 60) % 60,
-    seconds: totalSec % 60,
-    h24: date.getUTCHours(),
-  };
-}
+    function plural(value, word) {
+      return `${value} ${word}${value === 1 ? "" : "s"}`;
+    }
 
-function setHand(id, deg) {
-  const el = document.getElementById(id);
-  if (el) el.setAttribute('transform', `rotate(${deg} 100 100)`);
-}
+    function getElapsedParts() {
+      const now = new Date();
+      let diff = Math.max(0, now.getTime() - startMoment.getTime());
 
-function updateClocks() {
-  const lahore = timeForOffset(LAHORE_OFFSET);
-  const caraga = timeForOffset(CARAGA_OFFSET);
-  setHand('lahoreHour', (lahore.hours % 12) * 30);
-  setHand('lahoreMinute', lahore.minutes * 6);
-  setHand('lahoreSecond', lahore.seconds * 6);
-  setHand('caragaHour', (caraga.hours % 12) * 30);
-  setHand('caragaMinute', caraga.minutes * 6);
-  setHand('caragaSecond', caraga.seconds * 6);
-  const hisStatus = getHisStatus(lahore.h24);
-  const herStatus = getHerStatus(caraga.h24);
-  $('#lahoreStatusText').textContent = hisStatus.text;
-  $('#caragaStatusText').textContent = herStatus.text;
-  $('#lahoreStatus').classList.toggle('asleep', !hisStatus.active);
-  $('#caragaStatus').classList.toggle('asleep', !herStatus.active);
-  requestAnimationFrame(updateClocks);
-}
+      const dayMs = 1000 * 60 * 60 * 24;
+      const hourMs = 1000 * 60 * 60;
+      const minuteMs = 1000 * 60;
 
-function getHisStatus(h) {
-  if (h === 0) return { active: true, text: "winding down · she's checking in" };
-  if (h >= 1 && h <= 8) return { active: false, text: "asleep · she's already at school" };
-  if (h === 9) return { active: true, text: "getting ready · office at ten" };
-  if (h >= 10 && h <= 18) return { active: true, text: "at the office · thinking of her" };
-  if (h === 19) return { active: true, text: "heading home · day winding down" };
-  if (h === 20) return { active: true, text: "home · dinner soon" };
-  if (h >= 21 && h <= 23) return { active: true, text: "deep into his project · she's asleep" };
-  return { active: true, text: "—" };
-}
+      const days = Math.floor(diff / dayMs);
+      diff -= days * dayMs;
 
-function getHerStatus(h) {
-  if (h >= 22 || h <= 5) return { active: false, text: "asleep · he's working late" };
-  if (h >= 6 && h <= 12) return { active: true, text: "at school · teaching her kids" };
-  if (h >= 13 && h <= 18) return { active: true, text: "free time · doom scrolling or watching K-drama" };
-  if (h >= 19 && h <= 21) return { active: true, text: "chores · winding down soon" };
-  return { active: true, text: "—" };
-}
+      const hours = Math.floor(diff / hourMs);
+      diff -= hours * hourMs;
 
-updateClocks();
+      const minutes = Math.floor(diff / minuteMs);
+      diff -= minutes * minuteMs;
 
-function updateDays() {
-  const start = new Date(CONFIG.startDate + 'T00:00:00');
-  const now = new Date();
-  const days = Math.floor((now - start) / (1000 * 60 * 60 * 24));
-  $('#dayCount').textContent = days >= 0 ? days.toLocaleString() : '0';
-}
-updateDays();
-setInterval(updateDays, 60 * 60 * 1000);
+      const seconds = Math.floor(diff / 1000);
 
-// PAUSE ROOM
-const breathCircle = $('#breathCircle');
-const breathText = $('#breathText');
-const pauseBtn = $('#pauseBtn');
-const pauseTimer = $('#pauseTimer');
-let pauseActive = false;
-let pauseInterval = null;
-let pauseSecondsLeft = 600;
-let breathPhase = 0;
-let breathTimeout = null;
-const breathPhases = [
-  { label: 'breathe in', cls: 'in', dur: 4000 },
-  { label: 'hold', cls: 'hold', dur: 2000 },
-  { label: 'breathe out', cls: 'out', dur: 6000 },
-  { label: 'hold', cls: 'hold', dur: 1000 },
-];
+      return { days, hours, minutes, seconds };
+    }
 
-function runBreath() {
-  if (!pauseActive) return;
-  const phase = breathPhases[breathPhase];
-  breathCircle.classList.remove('in', 'hold', 'out');
-  breathCircle.classList.add(phase.cls);
-  breathText.textContent = phase.label;
-  breathTimeout = setTimeout(() => {
-    breathPhase = (breathPhase + 1) % breathPhases.length;
-    runBreath();
-  }, phase.dur);
-}
+    function updateRelationshipTimer() {
+      const { days, hours, minutes, seconds } = getElapsedParts();
 
-function fmtTime(s) {
-  const m = Math.floor(s / 60);
-  const sec = s % 60;
-  return `${String(m).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
-}
+      dom.relationshipTimer.textContent =
+        `We have been together for ${plural(days, "day")}, ` +
+        `${plural(hours, "hour")}, ` +
+        `${plural(minutes, "minute")}, ` +
+        `${plural(seconds, "second")} 💕`;
+    }
 
-function tickPause() {
-  pauseSecondsLeft--;
-  pauseTimer.textContent = fmtTime(pauseSecondsLeft);
-  if (pauseSecondsLeft <= 0) {
-    stopPause();
-    breathText.textContent = 'go talk to them, gently';
-    setTimeout(() => { breathText.textContent = 'tap to begin'; }, 6000);
-  }
-}
+    function getCurrentMemoryNumber() {
+      return Math.max(1, getElapsedParts().days);
+    }
 
-function startPause() {
-  pauseActive = true;
-  pauseSecondsLeft = 600;
-  breathPhase = 0;
-  pauseTimer.textContent = fmtTime(pauseSecondsLeft);
-  pauseBtn.textContent = 'end early';
-  runBreath();
-  pauseInterval = setInterval(tickPause, 1000);
-}
+    function getImageSource(memoryNumber) {
+      const safeNumber = clamp(memoryNumber, 1, REMOTE_PHOTOS.length);
+      return REMOTE_PHOTOS[safeNumber - 1] || REMOTE_PHOTOS[0];
+    }
 
-function stopPause() {
-  pauseActive = false;
-  clearTimeout(breathTimeout);
-  clearInterval(pauseInterval);
-  pauseBtn.textContent = 'begin';
-  breathCircle.classList.remove('in', 'hold');
-  breathCircle.classList.add('out');
-  pauseTimer.textContent = '10:00';
-}
+    function getRandomImageNumber(currentNumber) {
+      if (REMOTE_PHOTOS.length <= 1) return 1;
 
-pauseBtn.addEventListener('click', () => { if (pauseActive) stopPause(); else startPause(); });
-breathCircle.addEventListener('click', () => { if (!pauseActive) startPause(); });
+      let randomNumber = currentNumber;
 
-// OVERTHINKING REMINDERS
-const reminders = [
-  { stamp: 'when the head says "this won\'t last"', text: "they bet against us.<br>we bet on <em>each other</em>.<br>that's the only score that matters." },
-  { stamp: 'when the silence stretches', text: "silence isn't absence.<br>they're just on their side of the world,<br><em>breathing</em>." },
-  { stamp: 'when the worst case takes over', text: "the worst case is a <em>story</em><br>your fear is telling.<br>the real thing is the person who keeps showing up." },
-  { stamp: 'when someone outside doubts', text: "their doubt is information about <em>them</em>.<br>your choosing is information about <em>you</em>." },
-  { stamp: 'when the distance feels heavy', text: "you accepted this challenge.<br>you both did. <em>eyes open</em>.<br>you don't get to forget that on the bad days." },
-  { stamp: 'when you forget you\'re on the same side', text: "it was never <em>me vs you</em>.<br>it was always us vs the world.<br>find your way back to the same side." },
-  { stamp: 'tonight', text: "they're three hours away on the same earth,<br>choosing the <em>same thing</em> you are.<br>that's not nothing. that's everything." },
-];
-let currentReminderIdx = 0;
+      while (randomNumber === currentNumber) {
+        randomNumber = Math.floor(Math.random() * REMOTE_PHOTOS.length) + 1;
+      }
 
-function renderReminders() {
-  const stack = $('#calmStack');
-  stack.innerHTML = '';
-  reminders.forEach((r, i) => {
-    const card = document.createElement('div');
-    card.className = 'reminder-card' + (i === currentReminderIdx ? ' active' : '');
-    card.innerHTML = `<p class="reminder-stamp">${r.stamp}</p><p class="reminder-text">${r.text}</p>`;
-    stack.appendChild(card);
-  });
-  updateCalmCounter();
-}
+      return randomNumber;
+    }
 
-function updateCalmCounter() {
-  $('#calmCounter').textContent = `${currentReminderIdx + 1} · ${reminders.length}`;
-}
+    function getCaption(memoryNumber) {
+      const safeNumber = clamp(memoryNumber, 1, REMOTE_PHOTOS.length);
+      return CAPTIONS[safeNumber] || "Another beautiful memory of Vaniza that made my heart softer 💕";
+    }
 
-function changeReminder(dir) {
-  currentReminderIdx = (currentReminderIdx + dir + reminders.length) % reminders.length;
-  $$('.reminder-card').forEach((c, i) => c.classList.toggle('active', i === currentReminderIdx));
-  updateCalmCounter();
-}
+    function typeOpeningMessage() {
+      let index = 0;
+      dom.typingText.textContent = "";
 
-$('#calmPrev').addEventListener('click', () => changeReminder(-1));
-$('#calmNext').addEventListener('click', () => changeReminder(1));
-renderReminders();
+      const interval = setInterval(() => {
+        dom.typingText.textContent += OPENING_MESSAGE.charAt(index);
+        index += 1;
 
-// MEMORY WALL
-$$('.polaroid').forEach(p => {
-  p.addEventListener('click', () => {
-    $('#lightboxImg').src = p.dataset.src;
-    $('#lightbox').classList.add('open');
-  });
-});
-$('#lightbox').addEventListener('click', () => { $('#lightbox').classList.remove('open'); });
+        if (index >= OPENING_MESSAGE.length) {
+          clearInterval(interval);
+        }
+      }, 48);
+    }
 
-// RESET
-function showResetStep(n) {
-  $$('.reset-step').forEach(s => s.classList.remove('active'));
-  const target = document.querySelector(`.reset-step[data-step="${n}"]`);
-  if (target) target.classList.add('active');
-  $$('.reset-dot').forEach((d, i) => d.classList.toggle('active', i < n));
-}
+    function createMemoryPage(memoryNumber, visualIndex, totalVisualPages) {
+      const page = document.createElement("article");
+      page.className = "memory-page";
+      page.setAttribute("role", "button");
+      page.setAttribute("tabindex", "0");
+      page.setAttribute("aria-label", "Tap to shuffle this memory photo");
+      page.dataset.memoryNumber = String(memoryNumber);
 
-$$('[data-next]').forEach(b => b.addEventListener('click', () => showResetStep(parseInt(b.dataset.next))));
-$$('[data-prev]').forEach(b => b.addEventListener('click', () => showResetStep(parseInt(b.dataset.prev))));
+      const rotation = (visualIndex - totalVisualPages / 2) * 0.45;
+      const offset = visualIndex * 2.1;
 
-$('#chooseBtn').addEventListener('click', () => {
-  $$('.reset-step').forEach(s => s.classList.remove('active'));
-  document.querySelector('.reset-progress').style.display = 'none';
-  $('#resetCompleteMsg').classList.add('visible');
-  recordMoment(true);
-});
+      page.style.zIndex = String(totalVisualPages - visualIndex);
+      page.style.transform = `translate(${offset}px, ${offset}px) rotate(${rotation}deg)`;
 
-$('#resetRestart').addEventListener('click', () => {
-  $('#resetCompleteMsg').classList.remove('visible');
-  document.querySelector('.reset-progress').style.display = 'flex';
-  showResetStep(1);
-});
+      const hint = document.createElement("div");
+      hint.className = "tap-hint";
+      hint.textContent = "tap photo to shuffle 💞";
 
-// TOGETHER MOMENT
-const heartBtn = $('#heartBtn');
-const togetherMsg = $('#togetherMessage');
-const momentList = $('#momentList');
-const togetherMessages = [
-  "kept · saved · sent across the sky.",
-  "this counts. this is staying.",
-  "across all that distance, this lands.",
-  "they're somewhere right now. so are you. that's enough.",
-  "your heart pulse was felt.",
-  "a small proof. a real one.",
-  "us versus the world · still winning.",
-];
+      const photoWrap = document.createElement("div");
+      photoWrap.className = "page-photo-wrap";
 
-function fmtMoment(d) {
-  return d.toLocaleString('en-US', {
-    month: 'short', day: 'numeric',
-    hour: 'numeric', minute: '2-digit', hour12: true
-  }).toLowerCase();
-}
+      const img = document.createElement("img");
+      img.alt = "A beautiful memory of Vaniza";
+      img.src = getImageSource(memoryNumber);
+      img.loading = "eager";
 
-function renderMoments() {
-  const moments = JSON.parse(localStorage.getItem('moments') || '[]');
-  if (moments.length === 0) {
-    momentList.innerHTML = '<li class="moment-empty">the first one starts here.</li>';
-    return;
-  }
-  momentList.innerHTML = moments.slice(-12).reverse().map(m => {
-    const d = new Date(m.at);
-    const tag = m.kind === 'choose' ? '· chose us' : '';
-    return `<li class="moment-item"><span class="heart-mini">♡</span><span class="when">${fmtMoment(d)} ${tag}</span></li>`;
-  }).join('');
-}
+      const fallback = document.createElement("div");
+      fallback.className = "fallback-photo";
+      fallback.innerHTML = "This memory is still safe in my heart 💖<br />The image will appear if the link loads.";
 
-function recordMoment(isChoose) {
-  const moments = JSON.parse(localStorage.getItem('moments') || '[]');
-  moments.push({ at: new Date().toISOString(), kind: isChoose ? 'choose' : 'tap' });
-  localStorage.setItem('moments', JSON.stringify(moments));
-  renderMoments();
-}
+      img.onerror = () => {
+        img.style.display = "none";
+        fallback.style.display = "flex";
+      };
 
-renderMoments();
+      const tag = document.createElement("div");
+      tag.className = "page-tag";
+      tag.textContent = "Memory";
 
-heartBtn.addEventListener('click', () => {
-  heartBtn.classList.remove('pulsing');
-  void heartBtn.offsetWidth;
-  heartBtn.classList.add('pulsing');
-  recordMoment(false);
-  const msg = togetherMessages[Math.floor(Math.random() * togetherMessages.length)];
-  togetherMsg.style.opacity = '0';
-  setTimeout(() => {
-    togetherMsg.textContent = msg;
-    togetherMsg.style.opacity = '1';
-  }, 200);
-});
+      const caption = document.createElement("div");
+      caption.className = "page-caption";
+      caption.textContent = getCaption(memoryNumber);
 
-// ============================================
-// MOOD METER — UPSET SLIDER
-// ============================================
-const MOODS = {
-  0:   { emoji: '🥰', label: 'absolutely not upset',        sub: 'we\'re literally perfect right now.' },
-  10:  { emoji: '😊', label: 'barely a ripple',             sub: 'he\'s probably trying his best, tbh.' },
-  20:  { emoji: '🙂', label: 'something\'s a little off',   sub: 'it\'ll pass. it always does.' },
-  30:  { emoji: '😐', label: 'hmm. noted.',                 sub: 'a quiet kind of bothered.' },
-  40:  { emoji: '😑', label: 'he did that thing again',     sub: 'you know the one.' },
-  50:  { emoji: '😒', label: 'in that in-between place',    sub: 'not quite fine. not quite not fine.' },
-  60:  { emoji: '😤', label: 'genuinely annoyed',           sub: 'still love him. just... annoyed.' },
-  70:  { emoji: '😠', label: 'silent treatment activated',  sub: 'he should probably reach out first.' },
-  80:  { emoji: '😡', label: 'okay this is serious',        sub: 'we need to actually talk.' },
-  90:  { emoji: '😢', label: 'hurt. really hurt.',          sub: 'please be gentle when you come back.' },
-  100: { emoji: '😭', label: 'full breakdown mode',         sub: 'drop everything. she needs you now.' },
-};
+      photoWrap.appendChild(img);
+      photoWrap.appendChild(fallback);
 
-const upsetSlider   = document.getElementById('upsetSlider');
-const upsetEmojiEl  = document.getElementById('upsetEmoji');
-const upsetPercentEl= document.getElementById('upsetPercent');
-const upsetLabelEl  = document.getElementById('upsetMoodLabel');
-const upsetSubEl    = document.getElementById('upsetMoodSub');
-const upsetRingEl   = document.getElementById('upsetRing');
+      page.appendChild(tag);
+      page.appendChild(hint);
+      page.appendChild(photoWrap);
+      page.appendChild(caption);
 
-function updateMoodMeter(val) {
-  const mood = MOODS[val];
-  upsetEmojiEl.textContent = mood.emoji;
-  upsetPercentEl.textContent = val + '%';
-  upsetLabelEl.textContent = mood.label;
+      page.addEventListener("click", () => shuffleMemoryPhoto(page));
+      page.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          shuffleMemoryPhoto(page);
+        }
+      });
 
-  upsetSubEl.style.opacity = '0';
-  setTimeout(() => {
-    upsetSubEl.textContent = mood.sub;
-    upsetSubEl.style.opacity = '1';
-  }, 160);
+      return page;
+    }
 
-  // bounce the emoji
-  upsetEmojiEl.style.transform = 'scale(1.35)';
-  setTimeout(() => { upsetEmojiEl.style.transform = 'scale(1)'; }, 280);
+    function shuffleMemoryPhoto(page) {
+      if (!page || page.classList.contains("torn")) return;
 
-  // ring border transitions from sage → gold → rose → rose-deep
-  if (val <= 20) {
-    upsetRingEl.style.borderColor = 'rgba(122, 138, 111, 0.35)';
-    upsetPercentEl.style.color    = 'var(--sage-deep)';
-  } else if (val <= 40) {
-    upsetRingEl.style.borderColor = 'rgba(193, 144, 86, 0.4)';
-    upsetPercentEl.style.color    = 'var(--gold)';
-  } else if (val <= 70) {
-    upsetRingEl.style.borderColor = 'rgba(184, 92, 78, 0.45)';
-    upsetPercentEl.style.color    = 'var(--rose)';
-  } else {
-    upsetRingEl.style.borderColor = 'rgba(146, 64, 47, 0.7)';
-    upsetPercentEl.style.color    = 'var(--rose-deep)';
-  }
+      const img = page.querySelector("img");
+      const fallback = page.querySelector(".fallback-photo");
+      const caption = page.querySelector(".page-caption");
+      const currentNumber = Number(page.dataset.memoryNumber || "1");
+      const newNumber = getRandomImageNumber(currentNumber);
 
-  // 💔 shooting star at 100%
-  if (val === 100) fireShootingStar();
-}
+      page.dataset.memoryNumber = String(newNumber);
+      page.classList.add("shuffle-pop");
 
-// ============ SHOOTING STAR — BROKEN HEART FLAIR ============
-function fireShootingStar() {
-  // don't stack: if one is mid-flight, skip
-  if (document.querySelector('.star-overlay')) return;
+      if (img) {
+        img.style.opacity = "0";
 
-  const overlay = document.createElement('div');
-  overlay.className = 'star-overlay';
+        setTimeout(() => {
+          img.src = getImageSource(newNumber);
+          img.style.display = "block";
+          img.style.opacity = "1";
 
-  const flair = document.createElement('div');
-  flair.className = 'star-flair';
+          if (fallback) fallback.style.display = "none";
+          if (caption) caption.textContent = getCaption(newNumber);
 
-  // wide background halo
-  const halo = document.createElement('div');
-  halo.className = 'star-glow-halo';
-  flair.appendChild(halo);
+          showToast("A new Vaniza memory appeared 💖");
+          createMiniHeartsAroundElement(page);
+        }, 190);
+      }
 
-  // core tail beam
-  const tail = document.createElement('div');
-  tail.className = 'star-tail';
-  flair.appendChild(tail);
+      setTimeout(() => page.classList.remove("shuffle-pop"), 680);
+    }
 
-  // the broken heart "star"
-  const heart = document.createElement('span');
-  heart.className = 'star-heart';
-  heart.textContent = '💔';
-  flair.appendChild(heart);
+    function buildPaperStack() {
+      const currentMemory = getCurrentMemoryNumber();
+      const visualCount = clamp(currentMemory, 1, MAX_ANIMATED_PAGES);
+      const firstMemory = Math.max(1, currentMemory - visualCount + 1);
 
-  overlay.appendChild(flair);
-  document.body.appendChild(overlay);
+      dom.paperStack.innerHTML = "";
 
-  // spawn ember sparks at intervals along the path
-  const totalMs   = 1900;
-  const emberCount = 14;
-  for (let i = 0; i < emberCount; i++) {
-    setTimeout(() => {
-      if (!overlay.isConnected) return;
-      const progress = i / (emberCount - 1);
-      const ease     = progress * progress; // mirrors starFlight easing
+      const fragment = document.createDocumentFragment();
 
-      // position on the diagonal (matching the CSS animation)
-      const vw = window.innerWidth;
-      const vh = window.innerHeight;
-      const travelX = vw + 180;
-      const travelY = vh + 180;
-      const x = -90 + -travelX * ease;   // rightward → leftward
-      const y = -90 + travelY  * ease;
+      for (let i = 0; i < visualCount; i += 1) {
+        fragment.appendChild(createMemoryPage(firstMemory + i, i, visualCount));
+      }
 
-      // convert to viewport coords
-      const screenX = vw - (-x);   // right: -90 → right-anchored
-      const screenY = y;
+      dom.paperStack.appendChild(fragment);
 
-      const size = Math.random() * 7 + 3;
-      const em   = document.createElement('div');
-      em.className = 'star-ember';
-      const angle = Math.random() * Math.PI * 2;
-      const dist  = Math.random() * 36 + 12;
-      em.style.cssText = `
-        width: ${size}px;
-        height: ${size}px;
-        right: ${Math.max(0, (vw - screenX) - size / 2)}px;
-        top: ${Math.max(0, screenY - size / 2)}px;
-        background: rgba(${200 + Math.random() * 55|0}, ${80 + Math.random() * 60|0}, ${60 + Math.random() * 40|0}, 0.95);
-        --dx: ${Math.cos(angle) * dist}px;
-        --dy: ${Math.sin(angle) * dist - 20}px;
-        --dur: ${0.5 + Math.random() * 0.4}s;
-        box-shadow: 0 0 ${size * 2}px rgba(220, 90, 70, 0.7);
+      return {
+        pages: Array.from(dom.paperStack.querySelectorAll(".memory-page")),
+        currentMemory,
+        visualCount,
+        skipped: Math.max(0, currentMemory - visualCount)
+      };
+    }
+
+    function animatePaperStack() {
+      const { pages, visualCount, skipped } = buildPaperStack();
+
+      dom.animationStatus.textContent =
+        skipped > 0
+          ? `${skipped} earlier memories are tucked safely inside. Opening the newest ones...`
+          : "Opening our memories...";
+
+      if (pages.length <= 1) {
+        finishOpeningAnimation();
+        return;
+      }
+
+      let index = 0;
+      const pagesToTear = pages.slice(0, -1);
+
+      const tearNext = () => {
+        if (index >= pagesToTear.length) {
+          finishOpeningAnimation();
+          return;
+        }
+
+        const page = pagesToTear[index];
+        page.classList.add("torn");
+
+        const remaining = pagesToTear.length - index;
+        dom.animationStatus.textContent =
+          remaining > 1
+            ? `Turning another memory page... ${remaining - 1} more 💞`
+            : "One last page before today’s memory 💖";
+
+        index += 1;
+        setTimeout(tearNext, visualCount > 18 ? 155 : 230);
+      };
+
+      setTimeout(tearNext, 650);
+    }
+
+    function finishOpeningAnimation() {
+      dom.animationStatus.textContent =
+        `This is our current memory after ${plural(getElapsedParts().days, "day")} together 💖`;
+
+      dom.loveLetterButton.classList.remove("hidden");
+
+      setTimeout(() => {
+        showToast("Tap the photo to shuffle our memories 💞");
+      }, 650);
+
+      handleAnniversaryMode();
+    }
+
+    function setupFlags() {
+      dom.philippinesFlag.src = FLAGS.philippines;
+      dom.pakistanFlag.src = FLAGS.pakistan;
+      dom.philippinesFlagTop.src = FLAGS.philippines;
+      dom.pakistanFlagTop.src = FLAGS.pakistan;
+    }
+
+    function openModal(title, body) {
+      dom.modalTitle.textContent = title;
+      dom.modalBody.textContent = body;
+      dom.modal.classList.add("show");
+    }
+
+    function closeModal() {
+      dom.modal.classList.remove("show");
+    }
+
+    function showToast(message) {
+      dom.toast.textContent = message;
+      dom.toast.classList.add("show");
+
+      clearTimeout(showToast.timeout);
+      showToast.timeout = setTimeout(() => {
+        dom.toast.classList.remove("show");
+      }, 2600);
+    }
+
+    function setupLoveLetter() {
+      dom.loveLetterButton.addEventListener("click", () => {
+        openModal("For Vaniza 💌", LOVE_LETTER);
+        burstConfetti(34);
+      });
+    }
+
+    function setupModal() {
+      dom.modalClose.addEventListener("click", closeModal);
+
+      dom.modal.addEventListener("click", (event) => {
+        if (event.target === dom.modal) closeModal();
+      });
+
+      window.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") closeModal();
+      });
+    }
+
+    function setupMusic() {
+      if (MUSIC_FILE.trim()) {
+        dom.bgMusic.src = MUSIC_FILE;
+      }
+
+      let playing = false;
+
+      dom.musicButton.addEventListener("click", async () => {
+        if (!MUSIC_FILE.trim()) {
+          showToast("Add your music file path in MUSIC_FILE first 🎵");
+          return;
+        }
+
+        try {
+          if (!playing) {
+            await dom.bgMusic.play();
+            playing = true;
+            dom.musicButton.textContent = "🔇 Pause music";
+            showToast("Music started softly 🎵");
+          } else {
+            dom.bgMusic.pause();
+            playing = false;
+            dom.musicButton.textContent = "🎵 Music";
+            showToast("Music paused 💕");
+          }
+        } catch (error) {
+          showToast("Tap again if your browser blocked autoplay 💗");
+        }
+      });
+    }
+
+    function createSparkle() {
+      const sparkle = document.createElement("span");
+      sparkle.className = "sparkle";
+
+      const size = Math.random() * 5 + 3;
+      sparkle.style.width = `${size}px`;
+      sparkle.style.height = `${size}px`;
+      sparkle.style.left = `${Math.random() * 100}%`;
+      sparkle.style.bottom = `-${Math.random() * 20 + 10}px`;
+      sparkle.style.animationDuration = `${Math.random() * 6 + 5}s`;
+
+      dom.sparkleLayer.appendChild(sparkle);
+      setTimeout(() => sparkle.remove(), 12000);
+    }
+
+    function setupSparkles() {
+      for (let i = 0; i < 35; i += 1) {
+        setTimeout(createSparkle, i * 120);
+      }
+
+      setInterval(createSparkle, 420);
+    }
+
+    const HEART_MESSAGES = [
+      "Vaniza, Your Guy loves you 💖",
+      "You are my favorite place 🌙",
+      "We Talk. We Fix. We Stay.",
+      "Distance loses. Love wins.",
+      "I choose you again 💕",
+      "Same side. Same heart.",
+      "Us versus the world 🫶"
+    ];
+
+    function createFloatingHeart() {
+      const heart = document.createElement("button");
+      heart.className = "floating-heart";
+      heart.type = "button";
+      heart.textContent = Math.random() > 0.5 ? "💗" : "💖";
+      heart.style.left = `${Math.random() * 96 + 1}%`;
+      heart.style.bottom = "-40px";
+      heart.style.fontSize = `${Math.random() * 16 + 17}px`;
+      heart.style.animationDuration = `${Math.random() * 7 + 8}s`;
+
+      heart.addEventListener("click", () => {
+        const message = HEART_MESSAGES[Math.floor(Math.random() * HEART_MESSAGES.length)];
+        showToast(message);
+        heart.remove();
+      });
+
+      dom.heartLayer.appendChild(heart);
+      setTimeout(() => heart.remove(), 16000);
+    }
+
+    function setupFloatingHearts() {
+      for (let i = 0; i < 10; i += 1) {
+        setTimeout(createFloatingHeart, i * 500);
+      }
+
+      setInterval(createFloatingHeart, 1650);
+    }
+
+    function createMiniHeartsAroundElement(element) {
+      const rect = element.getBoundingClientRect();
+
+      for (let i = 0; i < 10; i += 1) {
+        const burst = document.createElement("span");
+        burst.className = "flower-burst";
+        burst.textContent = Math.random() > 0.5 ? "💗" : "✨";
+        burst.style.left = `${rect.left + rect.width / 2}px`;
+        burst.style.top = `${rect.top + rect.height / 2}px`;
+        burst.style.setProperty("--x", `${(Math.random() - 0.5) * 180}px`);
+        burst.style.setProperty("--y", `${(Math.random() - 0.5) * 180}px`);
+        document.body.appendChild(burst);
+        setTimeout(() => burst.remove(), 950);
+      }
+    }
+
+    function burstConfetti(amount = 40) {
+      for (let i = 0; i < amount; i += 1) {
+        const piece = document.createElement("span");
+        piece.className = "confetti";
+
+        const huePick = Math.random();
+        if (huePick < 0.33) piece.style.background = "#ff6fae";
+        else if (huePick < 0.66) piece.style.background = "#b77cff";
+        else piece.style.background = "#ffd166";
+
+        piece.style.left = `${Math.random() * 100}%`;
+        piece.style.top = `${Math.random() * -18}px`;
+        piece.style.animationDuration = `${Math.random() * 1.5 + 2.1}s`;
+        piece.style.transform = `rotate(${Math.random() * 180}deg)`;
+
+        dom.confettiLayer.appendChild(piece);
+        setTimeout(() => piece.remove(), 4200);
+      }
+    }
+
+    function renderTimeline() {
+      dom.timeline.innerHTML = MILESTONES.map((item) => `
+        <div class="timeline-item">
+          <div class="timeline-dot">${item.icon}</div>
+          <div class="timeline-box">
+            <h3>${item.title}</h3>
+            <p>${item.text}</p>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    function setupCompliments() {
+      dom.complimentButton.addEventListener("click", () => {
+        const message = COMPLIMENTS[Math.floor(Math.random() * COMPLIMENTS.length)];
+        dom.complimentResult.textContent = message;
+        dom.complimentResult.animate(
+          [
+            { transform: "scale(0.98)", opacity: 0.6 },
+            { transform: "scale(1)", opacity: 1 }
+          ],
+          { duration: 280, easing: "ease-out" }
+        );
+        showToast("A new reason appeared 💗");
+      });
+    }
+
+    function renderOpenWhenLetters() {
+      dom.openWhenLetters.innerHTML = "";
+
+      OPEN_WHEN_LETTERS.forEach((letter) => {
+        const button = document.createElement("button");
+        button.className = "letter-card";
+        button.type = "button";
+        button.innerHTML = `
+          <span class="letter-icon">${letter.icon}</span>
+          <h3>${letter.title}</h3>
+          <p>${letter.preview}</p>
+        `;
+
+        button.addEventListener("click", () => openModal(letter.title, letter.message));
+        dom.openWhenLetters.appendChild(button);
+      });
+    }
+
+    function daysUntil(targetString) {
+      const target = new Date(targetString);
+      const now = new Date();
+      const diff = target.getTime() - now.getTime();
+      return Math.ceil(diff / (1000 * 60 * 60 * 24));
+    }
+
+    function updateCapsule() {
+      const capsule = daysUntil(LOVE_CAPSULE_UNLOCK);
+
+      if (capsule > 0) {
+        dom.capsuleDays.textContent = capsule;
+        dom.capsuleText.textContent = `The love capsule unlocks in ${plural(capsule, "day")} 🔒`;
+        dom.capsuleButton.textContent = "Locked for now";
+      } else {
+        dom.capsuleDays.textContent = "💌";
+        dom.capsuleText.textContent = "The love capsule is unlocked now.";
+        dom.capsuleButton.textContent = "Open Love Capsule";
+      }
+    }
+
+    function setupCapsule() {
+      dom.capsuleButton.addEventListener("click", () => {
+        const capsule = daysUntil(LOVE_CAPSULE_UNLOCK);
+
+        if (capsule > 0) {
+          showToast(`Not yet, my love. ${plural(capsule, "day")} left 🔒`);
+          return;
+        }
+
+        openModal("Love Capsule 💌", LOVE_CAPSULE_MESSAGE);
+        burstConfetti(45);
+      });
+    }
+
+    function createFlowerElement(index) {
+      const flower = document.createElement("button");
+      flower.className = "flower";
+      flower.type = "button";
+      flower.setAttribute("aria-label", "Touch to bloom this flower");
+
+      if (index === 7 || index === 30 || index === 100 || index % 50 === 0) {
+        flower.classList.add("special");
+      }
+
+      if (index % 25 === 0) {
+        flower.classList.add("super");
+      }
+
+      flower.innerHTML = `
+        <span class="stem"></span>
+        <span class="leaf left"></span>
+        <span class="leaf right"></span>
+        <span class="bloom">
+          <span class="petal"></span>
+          <span class="petal"></span>
+          <span class="petal"></span>
+          <span class="petal"></span>
+          <span class="petal"></span>
+          <span class="petal"></span>
+          <span class="center"></span>
+        </span>
       `;
-      overlay.appendChild(em);
-    }, i * (totalMs * 0.85 / emberCount));
-  }
 
-  // remove overlay after animation finishes
-  setTimeout(() => overlay.remove(), totalMs + 400);
-}
+      flower.style.animationDelay = `${Math.min(index * 0.025, 1.6)}s`;
+      flower.addEventListener("click", () => bloomFlower(flower));
 
-upsetSlider.addEventListener('input', (e) => {
-  updateMoodMeter(parseInt(e.target.value));
-});
-
-// initialise at default 10%
-updateMoodMeter(10);
-
-// SCROLL FADE-IN
-const fadeObserver = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('visible');
-      fadeObserver.unobserve(e.target);
+      return flower;
     }
-  });
-}, { threshold: 0.12 });
-$$('.fade-section').forEach(s => fadeObserver.observe(s));
 
-const vowObserver = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('visible');
-      vowObserver.unobserve(e.target);
+    function bloomFlower(flower) {
+      flower.classList.add("bloomed");
+      createMiniHeartsAroundElement(flower);
+
+      const message = FLOWER_MESSAGES[Math.floor(Math.random() * FLOWER_MESSAGES.length)];
+      showToast(message);
     }
-  });
-}, { threshold: 0.4 });
-$$('.vow-item, .vow-divider, .vow-closing').forEach(v => vowObserver.observe(v));
-</script>
+
+    function renderFlowerGarden() {
+      const { days } = getElapsedParts();
+      const flowersToDraw = clamp(days, 1, MAX_FLOWERS_TO_DRAW);
+
+      dom.flowerGarden.innerHTML = "";
+
+      for (let i = 1; i <= flowersToDraw; i += 1) {
+        dom.flowerGarden.appendChild(createFlowerElement(i));
+      }
+
+      if (days > MAX_FLOWERS_TO_DRAW) {
+        dom.gardenNote.textContent =
+          `${MAX_FLOWERS_TO_DRAW} flowers are visible here, and ${days - MAX_FLOWERS_TO_DRAW} more are blooming quietly in our invisible garden 💕`;
+      } else {
+        dom.gardenNote.textContent =
+          `${plural(days, "flower")} waiting to bloom for ${plural(days, "day")} together 🌸`;
+      }
+    }
+
+    function renderAchievements() {
+      const { days } = getElapsedParts();
+
+      dom.badgesGrid.innerHTML = "";
+
+      ACHIEVEMENTS.forEach((achievement) => {
+        const unlocked = days >= achievement.days;
+
+        const badge = document.createElement("div");
+        badge.className = `badge ${unlocked ? "unlocked" : ""}`;
+        badge.innerHTML = `
+          <span class="badge-icon">${unlocked ? achievement.icon : "🔒"}</span>
+          <h3>${achievement.title}</h3>
+          <p>${unlocked ? achievement.text : "Locked for now, but love is still growing."}</p>
+        `;
+
+        dom.badgesGrid.appendChild(badge);
+      });
+    }
+
+    function getSoftGameScores() {
+      try {
+        return JSON.parse(localStorage.getItem("softHeartScores")) || {
+          Vaniza: 0,
+          "My Guy": 0
+        };
+      } catch (error) {
+        return {
+          Vaniza: 0,
+          "My Guy": 0
+        };
+      }
+    }
+
+    function saveSoftGameScores(scores) {
+      localStorage.setItem("softHeartScores", JSON.stringify(scores));
+    }
+
+    function updateSoftGameUI() {
+      const scores = getSoftGameScores();
+      const vaniza = scores.Vaniza || 0;
+      const myGuy = scores["My Guy"] || 0;
+      const total = Math.max(1, vaniza + myGuy);
+
+      dom.vanizaScoreText.textContent = vaniza;
+      dom.myGuyScoreText.textContent = myGuy;
+
+      dom.vanizaScoreFill.style.width = `${(vaniza / total) * 100}%`;
+      dom.myGuyScoreFill.style.width = `${(myGuy / total) * 100}%`;
+    }
+
+    function setupSoftHeartGame() {
+      document.querySelectorAll(".choice-btn").forEach((button) => {
+        button.addEventListener("click", () => {
+          const choice = button.dataset.choice;
+          const scores = getSoftGameScores();
+
+          scores[choice] = (scores[choice] || 0) + 1;
+          saveSoftGameScores(scores);
+
+          const messages = SOFT_GAME_MESSAGES[choice];
+          const message = messages[Math.floor(Math.random() * messages.length)];
+
+          dom.softResult.textContent = message;
+          dom.softHeartBig.textContent = choice === "Vaniza" ? "🌸" : "💖";
+
+          updateSoftGameUI();
+          burstConfetti(22);
+          showToast(`${choice} softs first this time 🥺`);
+        });
+      });
+
+      dom.resetSoftGame.addEventListener("click", () => {
+        saveSoftGameScores({ Vaniza: 0, "My Guy": 0 });
+
+        dom.softResult.textContent =
+          "Pick who melts first after a fight. But honestly, love always wins before pride does.";
+
+        dom.softHeartBig.textContent = "💗";
+        updateSoftGameUI();
+        showToast("The cute fight game is reset 💞");
+      });
+
+      updateSoftGameUI();
+    }
+
+    function handleAnniversaryMode() {
+      const now = new Date();
+      const { days } = getElapsedParts();
+
+      const monthlyMatch = now.getDate() === START_DAY;
+      const yearlyMatch =
+        now.getMonth() === START_MONTH_INDEX &&
+        now.getDate() === START_DAY &&
+        days >= 365;
+
+      if (!monthlyMatch && !yearlyMatch) return;
+
+      document.body.classList.add("anniversary-mode");
+      burstConfetti(yearlyMatch ? 100 : 60);
+
+      const message = yearlyMatch
+        ? "Today feels extra special because our love completed another beautiful circle. I still choose you, Vaniza 💖"
+        : "Today feels like a tiny anniversary of us. Another soft reminder that I still choose you, Vaniza 💖";
+
+      setTimeout(() => openModal("Special us moment ✨", message), 1100);
+    }
+
+    function setupAnniversaryTapSurprise() {
+      let taps = 0;
+      const title = document.querySelector("h1");
+
+      title.addEventListener("click", () => {
+        taps += 1;
+
+        if (taps >= 5) {
+          taps = 0;
+          burstConfetti(80);
+          showToast("Secret love burst unlocked 💖");
+        }
+      });
+    }
+
+    let foodGameFoods = [];
+    let foodGameCurrentWinner = null;
+    let foodGameChallengerIndex = 0;
+    let foodGameRound = 0;
+    const FOOD_GAME_TOTAL_ROUNDS = FOOD_GAME_FOODS.length - 1;
+    let foodGameConfettiAnim = null;
+    let foodGameParticles = [];
+
+    function foodGameShuffle(array) {
+      const copy = [...array];
+
+      for (let i = copy.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+
+      return copy;
+    }
+
+    function foodGameStartHearts() {
+      const heartsBox = document.getElementById("foodGameHearts");
+      heartsBox.innerHTML = "";
+
+      const symbols = ["♡", "♥", "💕", "💗", "💖", "💓"];
+
+      for (let i = 0; i < 18; i += 1) {
+        const heart = document.createElement("span");
+        heart.className = "food-floating-heart";
+        heart.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        heart.style.left = `${Math.random() * 100}%`;
+        heart.style.fontSize = `${0.9 + Math.random() * 1.4}rem`;
+        heart.style.animationDuration = `${8 + Math.random() * 10}s`;
+        heart.style.animationDelay = `${Math.random() * 3}s`;
+        heartsBox.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 18000);
+      }
+    }
+
+    function foodGameOpen() {
+      const overlay = document.getElementById("foodGameOverlay");
+      overlay.classList.add("show");
+      overlay.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+
+      foodGameStartHearts();
+      foodGameInit();
+    }
+
+    function foodGameClose() {
+      const overlay = document.getElementById("foodGameOverlay");
+      overlay.classList.remove("show");
+      overlay.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+
+      foodGameStopConfetti();
+    }
+
+    function foodGameInit() {
+      foodGameFoods = foodGameShuffle(FOOD_GAME_FOODS);
+      foodGameCurrentWinner = foodGameFoods[0];
+      foodGameChallengerIndex = 1;
+      foodGameRound = 1;
+
+      document.getElementById("foodGameArena").style.display = "";
+      document.getElementById("foodGameProgressWrap").style.display = "";
+      document.getElementById("foodGameResultScreen").style.display = "none";
+
+      foodGameRenderRound();
+    }
+
+    function foodGameRenderRound() {
+      const challenger = foodGameFoods[foodGameChallengerIndex];
+
+      foodGameSetCard("Top", foodGameCurrentWinner);
+      foodGameSetCard("Bottom", challenger);
+
+      const percent = ((foodGameRound - 1) / FOOD_GAME_TOTAL_ROUNDS) * 100;
+
+      document.getElementById("foodGameProgressFill").style.width = `${percent}%`;
+      document.getElementById("foodGameProgressLabel").textContent =
+        `Round ${foodGameRound} of ${FOOD_GAME_TOTAL_ROUNDS}`;
+
+      foodGameRestartAnimation(document.getElementById("foodGameTopCard"), "food-card-enter-left");
+      foodGameRestartAnimation(document.getElementById("foodGameBottomCard"), "food-card-enter-right");
+    }
+
+    function foodGameSetCard(position, food) {
+      document.getElementById(`foodGame${position}Emoji`).textContent = food.emoji;
+      document.getElementById(`foodGame${position}Name`).textContent = food.name;
+    }
+
+    function foodGameRestartAnimation(element, className) {
+      element.classList.remove(className, "food-winner-glow");
+      void element.offsetWidth;
+      element.classList.add(className);
+    }
+
+    function foodGameChoose(side) {
+      const topFood = {
+        name: document.getElementById("foodGameTopName").textContent,
+        emoji: document.getElementById("foodGameTopEmoji").textContent
+      };
+
+      const bottomFood = {
+        name: document.getElementById("foodGameBottomName").textContent,
+        emoji: document.getElementById("foodGameBottomEmoji").textContent
+      };
+
+      const chosen = side === "top" ? topFood : bottomFood;
+      const chosenCard = document.getElementById(side === "top" ? "foodGameTopCard" : "foodGameBottomCard");
+
+      foodGameRestartAnimation(chosenCard, "food-winner-glow");
+
+      foodGameCurrentWinner = chosen;
+      foodGameChallengerIndex += 1;
+      foodGameRound += 1;
+
+      if (foodGameChallengerIndex >= foodGameFoods.length) {
+        setTimeout(foodGameShowResult, 420);
+      } else {
+        setTimeout(foodGameRenderRound, 260);
+      }
+    }
+
+    function foodGameShowResult() {
+      document.getElementById("foodGameArena").style.display = "none";
+      document.getElementById("foodGameProgressWrap").style.display = "none";
+
+      document.getElementById("foodGameResultEmoji").textContent = foodGameCurrentWinner.emoji;
+      document.getElementById("foodGameResultName").textContent = foodGameCurrentWinner.name;
+
+      document.getElementById("foodGameLoveMessage").textContent =
+        FOOD_GAME_LOVE_MESSAGES[foodGameCurrentWinner.name] ||
+        "Kaya mo pala piliin ang pinakamainam! Tulad mo — palaging best choice. 💕";
+
+      document.getElementById("foodGameResultScreen").style.display = "block";
+      document.getElementById("foodGameProgressFill").style.width = "100%";
+
+      foodGameLaunchConfetti();
+    }
+
+    function foodGameDrawHeart(ctx, x, y, size) {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.beginPath();
+      ctx.moveTo(0, -size * 0.4);
+      ctx.bezierCurveTo(size * 0.5, -size, size, -size * 0.3, size * 0.5, size * 0.3);
+      ctx.bezierCurveTo(0, size * 0.9, 0, size * 0.9, 0, size * 0.9);
+      ctx.bezierCurveTo(0, size * 0.9, -size * 0.5, size * 0.3, -size * 0.5, size * 0.3);
+      ctx.bezierCurveTo(-size, -size * 0.3, -size * 0.5, -size, 0, -size * 0.4);
+      ctx.closePath();
+      ctx.fill();
+      ctx.restore();
+    }
+
+    function foodGameLaunchConfetti() {
+      const canvas = document.getElementById("foodGameConfettiCanvas");
+      const ctx = canvas.getContext("2d");
+      const colors = ["#f2637a", "#ffd6e0", "#e8a87c", "#c4405a", "#ffe0ec", "#fff0f4"];
+
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      foodGameParticles = [];
+
+      for (let i = 0; i < 140; i += 1) {
+        foodGameParticles.push({
+          x: Math.random() * canvas.width,
+          y: -20 - Math.random() * 200,
+          r: 5 + Math.random() * 7,
+          d: 2 + Math.random() * 3,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          tilt: Math.random() * 10 - 10,
+          tiltSpeed: 0.05 + Math.random() * 0.1,
+          tiltAngle: 0,
+          shape: Math.random() > 0.5 ? "heart" : "rect"
+        });
+      }
+
+      foodGameDrawConfetti();
+    }
+
+    function foodGameDrawConfetti() {
+      const canvas = document.getElementById("foodGameConfettiCanvas");
+      const ctx = canvas.getContext("2d");
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      let alive = false;
+
+      for (const particle of foodGameParticles) {
+        ctx.fillStyle = particle.color;
+
+        particle.tiltAngle += particle.tiltSpeed;
+        particle.y += particle.d;
+        particle.x += Math.sin(particle.tiltAngle) * 1.5;
+        particle.tilt = Math.sin(particle.tiltAngle) * 12;
+
+        if (particle.y < canvas.height + 50) alive = true;
+
+        ctx.save();
+        ctx.translate(particle.x, particle.y);
+        ctx.rotate((particle.tilt * Math.PI) / 180);
+
+        if (particle.shape === "heart") {
+          foodGameDrawHeart(ctx, 0, 0, particle.r);
+        } else {
+          ctx.fillRect(-particle.r / 2, -particle.r / 2, particle.r, particle.r * 1.4);
+        }
+
+        ctx.restore();
+      }
+
+      if (alive) {
+        foodGameConfettiAnim = requestAnimationFrame(foodGameDrawConfetti);
+      } else {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
+    }
+
+    function foodGameStopConfetti() {
+      const canvas = document.getElementById("foodGameConfettiCanvas");
+      const ctx = canvas.getContext("2d");
+
+      if (foodGameConfettiAnim) {
+        cancelAnimationFrame(foodGameConfettiAnim);
+      }
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    function setupFoodGame() {
+      const startButton = document.getElementById("foodGameStartButton");
+      const closeButton = document.getElementById("foodGameCloseButton");
+      const topCard = document.getElementById("foodGameTopCard");
+      const bottomCard = document.getElementById("foodGameBottomCard");
+      const restartButton = document.getElementById("foodGameRestartButton");
+      const overlay = document.getElementById("foodGameOverlay");
+
+      startButton.addEventListener("click", foodGameOpen);
+      closeButton.addEventListener("click", foodGameClose);
+      topCard.addEventListener("click", () => foodGameChoose("top"));
+      bottomCard.addEventListener("click", () => foodGameChoose("bottom"));
+
+      restartButton.addEventListener("click", () => {
+        foodGameStopConfetti();
+        foodGameInit();
+      });
+
+      overlay.addEventListener("click", (event) => {
+        if (event.target === overlay) foodGameClose();
+      });
+
+      window.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && overlay.classList.contains("show")) {
+          foodGameClose();
+        }
+      });
+
+      window.addEventListener("resize", () => {
+        const canvas = document.getElementById("foodGameConfettiCanvas");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      });
+    }
+
+    function boot() {
+      setupFlags();
+      setupModal();
+      setupLoveLetter();
+      setupMusic();
+      setupSparkles();
+      setupFloatingHearts();
+      setupCompliments();
+      setupCapsule();
+      setupSoftHeartGame();
+      setupFoodGame();
+      setupAnniversaryTapSurprise();
+
+      renderTimeline();
+      renderOpenWhenLetters();
+      renderFlowerGarden();
+      renderAchievements();
+
+      updateRelationshipTimer();
+      updateCapsule();
+
+      setInterval(updateRelationshipTimer, 1000);
+      setInterval(updateCapsule, 60 * 1000);
+
+      typeOpeningMessage();
+      animatePaperStack();
+    }
+
+    document.addEventListener("DOMContentLoaded", boot);
+  </script>
 </body>
 </html>
