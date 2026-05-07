@@ -119,10 +119,18 @@
       z-index: 2;
     }
 
-    .heart-layer {
-      pointer-events: auto;
-      z-index: 5;
-    }
+  .heart-layer {
+  pointer-events: none !important;
+  z-index: 5;
+}
+
+.floating-heart {
+  pointer-events: auto !important;
+}
+
+.floating-heart {
+  pointer-events: auto;
+}
 
     .sparkle {
       position: absolute;
@@ -3308,7 +3316,11 @@ Your Guy
       animatePaperStack();
     }
 
-    document.addEventListener("DOMContentLoaded", boot);
+    if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", boot);
+} else {
+  boot();
+}
   </script>
 </body>
 </html>
